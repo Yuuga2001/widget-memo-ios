@@ -1,0 +1,77 @@
+name: WidgetMemo
+options:
+  bundleIdPrefix: jp.riverapp
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "16.0"
+
+settings:
+  base:
+    SWIFT_VERSION: "5.10"
+
+targets:
+  WidgetMemo:
+    type: application
+    platform: iOS
+    sources:
+      - path: WidgetMemo
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: jp.riverapp.WidgetMemo
+        INFOPLIST_FILE: WidgetMemo/Resources/Info.plist
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        CODE_SIGN_ENTITLEMENTS: WidgetMemo/WidgetMemo.entitlements
+        GENERATE_INFOPLIST_FILE: false
+    dependencies:
+      - target: WidgetMemoWidgetExtension
+
+  WidgetMemoWidgetExtension:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: WidgetMemoWidget
+      - path: WidgetMemo/Shared
+        name: Shared
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: jp.riverapp.WidgetMemo.Widget
+        INFOPLIST_FILE: WidgetMemoWidget/Resources/Info.plist
+        CODE_SIGN_ENTITLEMENTS: WidgetMemoWidget/WidgetMemoWidget.entitlements
+        GENERATE_INFOPLIST_FILE: false
+        SKIP_INSTALL: true
+        LD_RUNPATH_SEARCH_PATHS: "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks"
+
+  WidgetMemoTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: WidgetMemoTests
+      - path: WidgetMemo/Shared
+        name: Shared
+    dependencies:
+      - target: WidgetMemo
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: true
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/WidgetMemo.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/WidgetMemo"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+
+schemes:
+  WidgetMemo:
+    build:
+      targets:
+        WidgetMemo: all
+        WidgetMemoWidgetExtension: all
+        WidgetMemoTests: [test]
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+        - WidgetMemoTests
+    profile:
+      config: Release
+    analyze:
+      config: Debug
+    archive:
+      config: Release
