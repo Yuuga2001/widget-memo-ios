@@ -14,7 +14,7 @@ struct MemoStoreTests {
 
     @Test func initialState_hasDefaultValues() {
         let (store, _) = makeStore()
-        #expect(store.text == "")
+        #expect(store.text == AppConstants.defaultText)
         #expect(store.fontSize == AppConstants.defaultFontSize)
     }
 
@@ -244,7 +244,7 @@ struct MemoStoreTests {
 
         store.deleteAllData()
 
-        #expect(store.text == "")
+        #expect(store.text == AppConstants.defaultText)
         #expect(store.fontSize == AppConstants.defaultFontSize)
 
         let bgUI = UIColor(store.backgroundColor)
@@ -256,7 +256,7 @@ struct MemoStoreTests {
 
         // Persistence check
         let reloaded = MemoStore(defaults: defaults)
-        #expect(reloaded.text == "")
+        #expect(reloaded.text == AppConstants.defaultText)
         #expect(reloaded.fontSize == AppConstants.defaultFontSize)
     }
 

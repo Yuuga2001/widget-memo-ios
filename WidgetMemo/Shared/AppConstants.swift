@@ -6,6 +6,7 @@ enum AppConstants {
     static let fontSizeKey = "font_size"
     static let backgroundColorKey = "background_color"
     static let textColorKey = "text_color"
+    static let defaultText = "メモを入力"
     static let defaultFontSize: Double = 18.0
     static let minFontSize: Double = 10.0
     static let maxFontSize: Double = 48.0

@@ -51,7 +51,7 @@ final class MemoStore {
         self.defaults = ud
 
         let savedFontSize = ud.double(forKey: AppConstants.fontSizeKey)
-        self.text = ud.string(forKey: AppConstants.memoTextKey) ?? ""
+        self.text = ud.string(forKey: AppConstants.memoTextKey) ?? AppConstants.defaultText
         self.fontSize = savedFontSize > 0 ? savedFontSize : AppConstants.defaultFontSize
         self.backgroundColor = Self.loadColor(from: ud, key: AppConstants.backgroundColorKey) ?? Self.defaultBackgroundColor
         self.textColor = Self.loadColor(from: ud, key: AppConstants.textColorKey) ?? Self.defaultTextColor
@@ -69,7 +69,7 @@ final class MemoStore {
 
     /// すべてのデータを初期化する
     func deleteAllData() {
-        text = ""
+        text = AppConstants.defaultText
         fontSize = AppConstants.defaultFontSize
         backgroundColor = Self.defaultBackgroundColor
         textColor = Self.defaultTextColor
