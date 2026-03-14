@@ -11,4 +11,9 @@ enum AppConstants {
     static let maxFontSize: Double = 48.0
     static let widgetKind = "WidgetMemoWidget"
     static let lockScreenWidgetKind = "WidgetMemoLockScreen"
+
+    // MARK: - URLs
+
+    static let aboutURL = URL(string: "https://riverapp.jp/app-document/WidgetMemo/about")!
+    static let privacyPolicyURL = URL(string: "https://riverapp.jp/app-document/WidgetMemo/privacy-policy")!
 }

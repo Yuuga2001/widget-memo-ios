@@ -4,6 +4,7 @@ struct SettingsSheet: View {
     @Environment(MemoStore.self) private var store
     @Environment(\.dismiss) private var dismiss
     @State private var showDeleteConfirm = false
+    @State private var safariURL: URL?
 
     var body: some View {
         @Bindable var store = store
@@ -55,6 +56,32 @@ struct SettingsSheet: View {
                         showDeleteConfirm = true
                     }
                 }
+
+                Section {
+                    Button {
+                        safariURL = AppConstants.aboutURL
+                    } label: {
+                        HStack {
+                            Text("QuickNote について")
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                        }
+                    }
+
+                    Button {
+                        safariURL = AppConstants.privacyPolicyURL
+                    } label: {
+                        HStack {
+                            Text("プライバシーポリシー")
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                        }
+                    }
+                }
             }
             .navigationTitle("設定")
             .navigationBarTitleDisplayMode(.inline)
@@ -73,5 +100,9 @@ struct SettingsSheet: View {
             }
         }
         .presentationDetents([.medium, .large])
+        .sheet(item: $safariURL) { url in
+            SafariView(url: url)
+                .ignoresSafeArea()
+        }
     }
 }
