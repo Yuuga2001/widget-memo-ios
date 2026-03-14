@@ -18,6 +18,22 @@ struct MemoStoreTests {
         #expect(store.fontSize == AppConstants.defaultFontSize)
     }
 
+    @Test func initialState_hasDefaultColors() {
+        let (store, _) = makeStore()
+        let bgUI = UIColor(store.backgroundColor)
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        bgUI.getRed(&r, green: &g, blue: &b, alpha: &a)
+        #expect(abs(r - 0.0) < 0.01)
+        #expect(abs(g - 0.573) < 0.01)
+        #expect(abs(b - 0.890) < 0.01)
+
+        let textUI = UIColor(store.textColor)
+        textUI.getRed(&r, green: &g, blue: &b, alpha: &a)
+        #expect(abs(r - 1.0) < 0.01)
+        #expect(abs(g - 1.0) < 0.01)
+        #expect(abs(b - 1.0) < 0.01)
+    }
+
     // MARK: - Text Persistence
 
     @Test func textPersistence_savesAndLoads() {
@@ -40,6 +56,15 @@ struct MemoStoreTests {
         #expect(reloaded.text == "")
     }
 
+    @Test func textPersistence_longText() {
+        let (store, defaults) = makeStore()
+        let longText = String(repeating: "あ", count: 10000)
+        store.text = longText
+
+        let reloaded = MemoStore(defaults: defaults)
+        #expect(reloaded.text == longText)
+    }
+
     // MARK: - Font Size Persistence
 
     @Test func fontSizePersistence_savesAndLoads() {
@@ -58,6 +83,22 @@ struct MemoStoreTests {
         #expect(store.fontSize == AppConstants.defaultFontSize)
     }
 
+    @Test func fontSizePersistence_minValue() {
+        let (store, defaults) = makeStore()
+        store.fontSize = AppConstants.minFontSize
+
+        let reloaded = MemoStore(defaults: defaults)
+        #expect(reloaded.fontSize == AppConstants.minFontSize)
+    }
+
+    @Test func fontSizePersistence_maxValue() {
+        let (store, defaults) = makeStore()
+        store.fontSize = AppConstants.maxFontSize
+
+        let reloaded = MemoStore(defaults: defaults)
+        #expect(reloaded.fontSize == AppConstants.maxFontSize)
+    }
+
     // MARK: - Color Persistence
 
     @Test func colorPersistence_backgroundColorRoundTrip() {
@@ -68,15 +109,12 @@ struct MemoStoreTests {
         let testColor = Color(red: 0.5, green: 0.3, blue: 0.8, opacity: 1.0)
         store1.backgroundColor = testColor
 
-        // Verify raw data was saved
         let saved = defaults.array(forKey: AppConstants.backgroundColorKey) as? [Double]
         #expect(saved != nil)
         #expect(saved?.count == 4)
 
-        // Verify reload works
         let store2 = MemoStore(defaults: defaults)
         let loaded = store2.backgroundColor
-        // Color comparison via RGBA components
         let uiLoaded = UIColor(loaded)
         var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
         uiLoaded.getRed(&r, green: &g, blue: &b, alpha: &a)
@@ -113,7 +151,14 @@ struct MemoStoreTests {
 
     @Test func loadColor_returnsNilForInvalidData() {
         let defaults = UserDefaults(suiteName: "test.\(UUID().uuidString)")!
-        defaults.set([1.0, 2.0], forKey: "bad_color") // Only 2 components
+        defaults.set([1.0, 2.0], forKey: "bad_color")
+        let color = MemoStore.loadColor(from: defaults, key: "bad_color")
+        #expect(color == nil)
+    }
+
+    @Test func loadColor_returnsNilForWrongType() {
+        let defaults = UserDefaults(suiteName: "test.\(UUID().uuidString)")!
+        defaults.set("not_a_color", forKey: "bad_color")
         let color = MemoStore.loadColor(from: defaults, key: "bad_color")
         #expect(color == nil)
     }
@@ -134,5 +179,46 @@ struct MemoStoreTests {
             #expect(abs(g - 0.6) < 0.01)
             #expect(abs(b - 0.9) < 0.01)
         }
+    }
+
+    @Test func saveColor_overwritesPreviousValue() {
+        let defaults = UserDefaults(suiteName: "test.\(UUID().uuidString)")!
+        let color1 = Color(red: 1.0, green: 0.0, blue: 0.0)
+        let color2 = Color(red: 0.0, green: 0.0, blue: 1.0)
+
+        MemoStore.saveColor(color1, forKey: "overwrite_test", in: defaults)
+        MemoStore.saveColor(color2, forKey: "overwrite_test", in: defaults)
+
+        let loaded = MemoStore.loadColor(from: defaults, key: "overwrite_test")
+        #expect(loaded != nil)
+        if let loaded {
+            let uiLoaded = UIColor(loaded)
+            var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+            uiLoaded.getRed(&r, green: &g, blue: &b, alpha: &a)
+            #expect(abs(r - 0.0) < 0.01)
+            #expect(abs(b - 1.0) < 0.01)
+        }
+    }
+
+    // MARK: - AppConstants
+
+    @Test func appConstants_fontSizeRange() {
+        #expect(AppConstants.minFontSize < AppConstants.maxFontSize)
+        #expect(AppConstants.defaultFontSize >= AppConstants.minFontSize)
+        #expect(AppConstants.defaultFontSize <= AppConstants.maxFontSize)
+    }
+
+    @Test func appConstants_keysAreUnique() {
+        let keys = [
+            AppConstants.memoTextKey,
+            AppConstants.fontSizeKey,
+            AppConstants.backgroundColorKey,
+            AppConstants.textColorKey,
+        ]
+        #expect(Set(keys).count == keys.count)
+    }
+
+    @Test func appConstants_widgetKindsAreUnique() {
+        #expect(AppConstants.widgetKind != AppConstants.lockScreenWidgetKind)
     }
 }
