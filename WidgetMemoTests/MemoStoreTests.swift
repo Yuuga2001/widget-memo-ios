@@ -200,6 +200,66 @@ struct MemoStoreTests {
         }
     }
 
+    // MARK: - Reset to Defaults
+
+    @Test func resetToDefaults_restoresSettings_keepsText() {
+        let (store, defaults) = makeStore()
+        store.text = "大切なメモ"
+        store.fontSize = 36.0
+        store.backgroundColor = Color(red: 1.0, green: 0.0, blue: 0.0)
+        store.textColor = Color(red: 0.0, green: 0.0, blue: 0.0)
+
+        store.resetToDefaults()
+
+        #expect(store.text == "大切なメモ")
+        #expect(store.fontSize == AppConstants.defaultFontSize)
+
+        let bgUI = UIColor(store.backgroundColor)
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        bgUI.getRed(&r, green: &g, blue: &b, alpha: &a)
+        #expect(abs(r - 0.0) < 0.01)
+        #expect(abs(g - 0.573) < 0.01)
+        #expect(abs(b - 0.890) < 0.01)
+
+        let textUI = UIColor(store.textColor)
+        textUI.getRed(&r, green: &g, blue: &b, alpha: &a)
+        #expect(abs(r - 1.0) < 0.01)
+        #expect(abs(g - 1.0) < 0.01)
+        #expect(abs(b - 1.0) < 0.01)
+
+        // Persistence check
+        let reloaded = MemoStore(defaults: defaults)
+        #expect(reloaded.text == "大切なメモ")
+        #expect(reloaded.fontSize == AppConstants.defaultFontSize)
+    }
+
+    // MARK: - Delete All Data
+
+    @Test func deleteAllData_resetsEverything() {
+        let (store, defaults) = makeStore()
+        store.text = "消えるメモ"
+        store.fontSize = 42.0
+        store.backgroundColor = Color(red: 1.0, green: 0.0, blue: 0.0)
+        store.textColor = Color(red: 0.0, green: 1.0, blue: 0.0)
+
+        store.deleteAllData()
+
+        #expect(store.text == "")
+        #expect(store.fontSize == AppConstants.defaultFontSize)
+
+        let bgUI = UIColor(store.backgroundColor)
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        bgUI.getRed(&r, green: &g, blue: &b, alpha: &a)
+        #expect(abs(r - 0.0) < 0.01)
+        #expect(abs(g - 0.573) < 0.01)
+        #expect(abs(b - 0.890) < 0.01)
+
+        // Persistence check
+        let reloaded = MemoStore(defaults: defaults)
+        #expect(reloaded.text == "")
+        #expect(reloaded.fontSize == AppConstants.defaultFontSize)
+    }
+
     // MARK: - AppConstants
 
     @Test func appConstants_fontSizeRange() {

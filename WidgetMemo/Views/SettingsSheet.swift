@@ -3,6 +3,7 @@ import SwiftUI
 struct SettingsSheet: View {
     @Environment(MemoStore.self) private var store
     @Environment(\.dismiss) private var dismiss
+    @State private var showDeleteConfirm = false
 
     var body: some View {
         @Bindable var store = store
@@ -44,6 +45,16 @@ struct SettingsSheet: View {
                         .clipShape(RoundedRectangle(cornerRadius: 8))
                         .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
                 }
+
+                Section {
+                    Button("デフォルト設定に戻す") {
+                        store.resetToDefaults()
+                    }
+
+                    Button("すべてのデータを削除", role: .destructive) {
+                        showDeleteConfirm = true
+                    }
+                }
             }
             .navigationTitle("設定")
             .navigationBarTitleDisplayMode(.inline)
@@ -51,6 +62,14 @@ struct SettingsSheet: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("完了") { dismiss() }
                 }
+            }
+            .alert("データを削除しますか？", isPresented: $showDeleteConfirm) {
+                Button("キャンセル", role: .cancel) {}
+                Button("削除する", role: .destructive) {
+                    store.deleteAllData()
+                }
+            } message: {
+                Text("メモの内容とすべての設定が初期化されます。この操作は取り消せません。")
             }
         }
         .presentationDetents([.medium, .large])

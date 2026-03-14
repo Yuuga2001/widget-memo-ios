@@ -34,6 +34,11 @@ final class MemoStore {
         }
     }
 
+    // MARK: - Defaults
+
+    static let defaultBackgroundColor = Color(red: 0.0, green: 0.573, blue: 0.890)
+    static let defaultTextColor = Color.white
+
     // MARK: - Private
 
     private let defaults: UserDefaults
@@ -48,8 +53,27 @@ final class MemoStore {
         let savedFontSize = ud.double(forKey: AppConstants.fontSizeKey)
         self.text = ud.string(forKey: AppConstants.memoTextKey) ?? ""
         self.fontSize = savedFontSize > 0 ? savedFontSize : AppConstants.defaultFontSize
-        self.backgroundColor = Self.loadColor(from: ud, key: AppConstants.backgroundColorKey) ?? Color(red: 0.0, green: 0.573, blue: 0.890)
-        self.textColor = Self.loadColor(from: ud, key: AppConstants.textColorKey) ?? Color.white
+        self.backgroundColor = Self.loadColor(from: ud, key: AppConstants.backgroundColorKey) ?? Self.defaultBackgroundColor
+        self.textColor = Self.loadColor(from: ud, key: AppConstants.textColorKey) ?? Self.defaultTextColor
+    }
+
+    // MARK: - Reset & Delete
+
+    /// フォントサイズ・背景色・文字色をデフォルトに戻す（メモ内容は保持）
+    func resetToDefaults() {
+        fontSize = AppConstants.defaultFontSize
+        backgroundColor = Self.defaultBackgroundColor
+        textColor = Self.defaultTextColor
+        reloadWidgetsNow()
+    }
+
+    /// すべてのデータを初期化する
+    func deleteAllData() {
+        text = ""
+        fontSize = AppConstants.defaultFontSize
+        backgroundColor = Self.defaultBackgroundColor
+        textColor = Self.defaultTextColor
+        reloadWidgetsNow()
     }
 
     // MARK: - Widget Reload
