@@ -48,11 +48,17 @@ final class MemoStore {
         let savedFontSize = ud.double(forKey: AppConstants.fontSizeKey)
         self.text = ud.string(forKey: AppConstants.memoTextKey) ?? ""
         self.fontSize = savedFontSize > 0 ? savedFontSize : AppConstants.defaultFontSize
-        self.backgroundColor = Self.loadColor(from: ud, key: AppConstants.backgroundColorKey) ?? Color.yellow
-        self.textColor = Self.loadColor(from: ud, key: AppConstants.textColorKey) ?? Color.primary
+        self.backgroundColor = Self.loadColor(from: ud, key: AppConstants.backgroundColorKey) ?? Color(red: 0.0, green: 0.573, blue: 0.890)
+        self.textColor = Self.loadColor(from: ud, key: AppConstants.textColorKey) ?? Color.white
     }
 
-    // MARK: - Widget Reload (Debounced)
+    // MARK: - Widget Reload
+
+    func reloadWidgetsNow() {
+        reloadTask?.cancel()
+        reloadTask = nil
+        WidgetCenter.shared.reloadAllTimelines()
+    }
 
     private func scheduleWidgetReload() {
         reloadTask?.cancel()

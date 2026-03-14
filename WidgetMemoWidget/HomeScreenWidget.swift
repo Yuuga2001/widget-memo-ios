@@ -11,7 +11,19 @@ struct HomeScreenWidgetEntryView: View {
             .foregroundStyle(entry.textColor)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .multilineTextAlignment(.leading)
-            .containerBackground(entry.backgroundColor, for: .widget)
+            .containerBackground(for: .widget) {
+                ZStack {
+                    Color.white
+                    LinearGradient(
+                        colors: [
+                            entry.backgroundColor,
+                            entry.backgroundColor.opacity(0.4),
+                        ],
+                        startPoint: .top,
+                        endPoint: .bottom
+                    )
+                }
+            }
     }
 
     private var adjustedFontSize: Double {

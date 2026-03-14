@@ -9,8 +9,8 @@ struct MemoTimelineProvider: TimelineProvider {
             date: .now,
             text: "メモを入力...",
             fontSize: AppConstants.defaultFontSize,
-            backgroundColor: .yellow,
-            textColor: .black
+            backgroundColor: Color(red: 0.0, green: 0.573, blue: 0.890),
+            textColor: .white
         )
     }
 
@@ -32,8 +32,8 @@ struct MemoTimelineProvider: TimelineProvider {
         let text = defaults.string(forKey: AppConstants.memoTextKey) ?? ""
         let savedFontSize = defaults.double(forKey: AppConstants.fontSizeKey)
         let fontSize = savedFontSize > 0 ? savedFontSize : AppConstants.defaultFontSize
-        let bgColor = MemoStore.loadColor(from: defaults, key: AppConstants.backgroundColorKey) ?? .yellow
-        let textColor = MemoStore.loadColor(from: defaults, key: AppConstants.textColorKey) ?? .primary
+        let bgColor = MemoStore.loadColor(from: defaults, key: AppConstants.backgroundColorKey) ?? Color(red: 0.0, green: 0.573, blue: 0.890)
+        let textColor = MemoStore.loadColor(from: defaults, key: AppConstants.textColorKey) ?? .white
 
         return MemoWidgetEntry(
             date: .now,
