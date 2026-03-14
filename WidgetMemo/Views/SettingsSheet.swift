@@ -81,6 +81,18 @@ struct SettingsSheet: View {
                                 .foregroundStyle(.tertiary)
                         }
                     }
+
+                    Button {
+                        safariURL = AppConstants.contactURL
+                    } label: {
+                        HStack {
+                            Text("お問い合わせ")
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.caption)
+                                .foregroundStyle(.tertiary)
+                        }
+                    }
                 }
             }
             .navigationTitle("設定")
