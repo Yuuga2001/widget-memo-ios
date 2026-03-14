@@ -14,6 +14,6 @@ enum AppConstants {
 
     // MARK: - URLs
 
-    static let aboutURL = URL(string: "https://riverapp.jp/app-document/WidgetMemo/about")!
-    static let privacyPolicyURL = URL(string: "https://riverapp.jp/app-document/WidgetMemo/privacy-policy")!
+    static let aboutURL = URL(string: "https://riverapp.jp/app-document/QuickNote/about")!
+    static let privacyPolicyURL = URL(string: "https://riverapp.jp/app-document/QuickNote/privacy-policy")!
 }
