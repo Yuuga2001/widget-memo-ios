@@ -62,7 +62,7 @@ struct SettingsSheet: View {
                         safariURL = AppConstants.aboutURL
                     } label: {
                         HStack {
-                            Text("QuickNote について")
+                            Text("MemoNow について")
                             Spacer()
                             Image(systemName: "chevron.right")
                                 .font(.caption)

@@ -45,7 +45,7 @@ struct HomeScreenWidget: Widget {
         StaticConfiguration(kind: kind, provider: MemoTimelineProvider()) { entry in
             HomeScreenWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("QuickNote")
+        .configurationDisplayName("MemoNow")
         .description("メモの内容を表示します")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }

@@ -47,7 +47,7 @@ struct LockScreenWidget: Widget {
         StaticConfiguration(kind: kind, provider: MemoTimelineProvider()) { entry in
             LockScreenWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("QuickNote")
+        .configurationDisplayName("MemoNow")
         .description("メモをロック画面に表示")
         .supportedFamilies([.accessoryRectangular, .accessoryCircular, .accessoryInline])
     }
