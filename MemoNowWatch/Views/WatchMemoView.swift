@@ -3,25 +3,34 @@ import SwiftUI
 struct WatchMemoView: View {
     let store: MemoStore
 
-    var body: some View {
-        VStack(spacing: 0) {
-            Text(store.boardName)
-                .font(.caption2)
-                .fontWeight(.bold)
-                .foregroundStyle(store.textColor.opacity(0.7))
-                .frame(maxWidth: .infinity, alignment: .center)
-                .padding(.vertical, 2)
+    @State private var crownFontSize: Double = AppConstants.watchDefaultFontSize
 
-            ScrollView {
-                Text(store.text)
-                    .font(.system(size: store.fontSize))
-                    .foregroundStyle(store.textColor)
-                    .frame(maxWidth: .infinity, alignment: .topLeading)
-                    .padding(.horizontal, 4)
-            }
+    var body: some View {
+        ScrollView {
+            Text(store.text)
+                .font(.system(size: crownFontSize))
+                .foregroundStyle(store.textColor)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 4)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .ignoresSafeArea(edges: .bottom)
-        .background(store.backgroundColor.ignoresSafeArea())
+        .background(store.backgroundColor)
+        .navigationTitle(store.boardName)
+        .focusable()
+        .digitalCrownRotation(
+            $crownFontSize,
+            from: AppConstants.watchMinFontSize,
+            through: AppConstants.watchMaxFontSize,
+            by: 1.0,
+            sensitivity: .medium,
+            isContinuous: false,
+            isHapticFeedbackEnabled: true
+        )
+        .onAppear {
+            // iPhone のフォントサイズを初期値としてスケーリング
+            crownFontSize = min(
+                max(store.fontSize * 0.6, AppConstants.watchMinFontSize),
+                AppConstants.watchMaxFontSize
+            )
+        }
     }
 }
