@@ -59,6 +59,18 @@ targets:
         GENERATE_INFOPLIST_FILE: false
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
 
+  MemoNowWatchUITests:
+    type: bundle.ui-testing
+    platform: watchOS
+    sources:
+      - path: MemoNowWatchUITests
+    dependencies:
+      - target: MemoNowWatch
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: true
+        TEST_TARGET_NAME: MemoNowWatch
+
   WidgetMemoTests:
     type: bundle.unit-test
     platform: iOS
@@ -98,7 +110,12 @@ schemes:
     build:
       targets:
         MemoNowWatch: all
+        MemoNowWatchUITests: [test]
     run:
       config: Debug
+    test:
+      config: Debug
+      targets:
+        - MemoNowWatchUITests
     archive:
       config: Release
