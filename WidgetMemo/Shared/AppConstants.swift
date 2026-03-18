@@ -50,6 +50,8 @@ enum AppConstants {
     static let watchMinFontSize: Double = 10.0
     static let watchMaxFontSize: Double = 30.0
 
+    static func watchFontSizeKey(for board: Int) -> String { "watch_board_\(board)_font_size" }
+
     // MARK: - URLs
 
     static let aboutURL = URL(string: "https://riverapp.jp/app-document/MemoNow/about")!
