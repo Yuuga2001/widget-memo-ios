@@ -8,18 +8,8 @@ struct WatchMemoView: View {
     /// Watch ローカルの UserDefaults にフォントサイズを永続化（iPhone とは独立）
     private var watchDefaults: UserDefaults { .standard }
 
-    private var savedFontSize: Double {
-        let saved = watchDefaults.double(forKey: AppConstants.watchFontSizeKey(for: store.boardIndex))
-        if saved > 0 { return saved }
-        return min(
-            max(store.fontSize * 0.6, AppConstants.watchMinFontSize),
-            AppConstants.watchMaxFontSize
-        )
-    }
-
     init(store: MemoStore) {
         self.store = store
-        // init 時に UserDefaults から読み込んで @State の初期値に設定
         let defaults = UserDefaults.standard
         let saved = defaults.double(forKey: AppConstants.watchFontSizeKey(for: store.boardIndex))
         if saved > 0 {
@@ -42,13 +32,11 @@ struct WatchMemoView: View {
                 .padding(.horizontal, 4)
                 .padding(.top, 2)
 
-            ScrollView {
-                Text(store.text)
-                    .font(.system(size: crownFontSize))
-                    .foregroundStyle(store.textColor)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 4)
-            }
+            Text(store.text)
+                .font(.system(size: crownFontSize))
+                .foregroundStyle(store.textColor)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding(.horizontal, 4)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(store.backgroundColor)
