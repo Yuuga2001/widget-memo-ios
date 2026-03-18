@@ -24,23 +24,23 @@ struct WatchMemoView: View {
     }
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            Text(store.boardName)
-                .font(.caption2)
-                .fontWeight(.bold)
-                .foregroundStyle(store.textColor.opacity(0.7))
-                .padding(.horizontal, 4)
-                .padding(.top, 2)
+        ScrollView {
+            VStack(alignment: .leading, spacing: 4) {
+                Text(store.boardName)
+                    .font(.caption2)
+                    .fontWeight(.bold)
+                    .foregroundStyle(store.textColor.opacity(0.7))
+                    .padding(.top, 2)
 
-            Text(store.text)
-                .font(.system(size: crownFontSize))
-                .foregroundStyle(store.textColor)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.horizontal, 4)
+                Text(store.text)
+                    .font(.system(size: crownFontSize))
+                    .foregroundStyle(store.textColor)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
+            }
+            .padding(.horizontal, 4)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(store.backgroundColor)
-        .focusable()
+        // Digital Crown をフォントサイズ変更専用にし、ScrollView のスクロールを上書き
         .digitalCrownRotation(
             $crownFontSize,
             from: AppConstants.watchMinFontSize,
