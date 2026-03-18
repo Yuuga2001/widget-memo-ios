@@ -4,10 +4,34 @@ struct WatchMemoView: View {
     let store: MemoStore
 
     @State private var crownFontSize: Double = AppConstants.watchDefaultFontSize
-    @State private var isInitialized = false
 
     /// Watch ローカルの UserDefaults にフォントサイズを永続化（iPhone とは独立）
     private var watchDefaults: UserDefaults { .standard }
+
+    private var savedFontSize: Double {
+        let saved = watchDefaults.double(forKey: AppConstants.watchFontSizeKey(for: store.boardIndex))
+        if saved > 0 { return saved }
+        return min(
+            max(store.fontSize * 0.6, AppConstants.watchMinFontSize),
+            AppConstants.watchMaxFontSize
+        )
+    }
+
+    init(store: MemoStore) {
+        self.store = store
+        // init 時に UserDefaults から読み込んで @State の初期値に設定
+        let defaults = UserDefaults.standard
+        let saved = defaults.double(forKey: AppConstants.watchFontSizeKey(for: store.boardIndex))
+        if saved > 0 {
+            _crownFontSize = State(initialValue: saved)
+        } else {
+            let scaled = min(
+                max(store.fontSize * 0.6, AppConstants.watchMinFontSize),
+                AppConstants.watchMaxFontSize
+            )
+            _crownFontSize = State(initialValue: scaled)
+        }
+    }
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -39,24 +63,7 @@ struct WatchMemoView: View {
             isHapticFeedbackEnabled: true
         )
         .onChange(of: crownFontSize) { _, newValue in
-            // Watch ローカルに保存（iPhone には影響しない）
             watchDefaults.set(newValue, forKey: AppConstants.watchFontSizeKey(for: store.boardIndex))
-        }
-        .onAppear {
-            guard !isInitialized else { return }
-            isInitialized = true
-
-            // Watch ローカルに保存済みのサイズがあればそれを使用
-            let savedSize = watchDefaults.double(forKey: AppConstants.watchFontSizeKey(for: store.boardIndex))
-            if savedSize > 0 {
-                crownFontSize = savedSize
-            } else {
-                // 初回は iPhone のサイズをスケーリングして初期値に
-                crownFontSize = min(
-                    max(store.fontSize * 0.6, AppConstants.watchMinFontSize),
-                    AppConstants.watchMaxFontSize
-                )
-            }
         }
     }
 }
