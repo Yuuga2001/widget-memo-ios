@@ -1,5 +1,7 @@
 import SwiftUI
+#if canImport(WidgetKit)
 import WidgetKit
+#endif
 
 @Observable
 final class MemoStore {
@@ -11,6 +13,7 @@ final class MemoStore {
     var boardName: String {
         didSet {
             defaults.set(boardName, forKey: AppConstants.boardNameKey(for: boardIndex))
+            notifyDataChanged()
         }
     }
 
@@ -20,6 +23,7 @@ final class MemoStore {
         didSet {
             defaults.set(text, forKey: AppConstants.memoTextKey(for: boardIndex))
             scheduleWidgetReload()
+            notifyDataChanged()
         }
     }
 
@@ -27,6 +31,7 @@ final class MemoStore {
         didSet {
             defaults.set(fontSize, forKey: AppConstants.fontSizeKey(for: boardIndex))
             scheduleWidgetReload()
+            notifyDataChanged()
         }
     }
 
@@ -34,6 +39,7 @@ final class MemoStore {
         didSet {
             Self.saveColor(backgroundColor, forKey: AppConstants.backgroundColorKey(for: boardIndex), in: defaults)
             scheduleWidgetReload()
+            notifyDataChanged()
         }
     }
 
@@ -41,6 +47,7 @@ final class MemoStore {
         didSet {
             Self.saveColor(textColor, forKey: AppConstants.textColorKey(for: boardIndex), in: defaults)
             scheduleWidgetReload()
+            notifyDataChanged()
         }
     }
 
@@ -56,10 +63,21 @@ final class MemoStore {
         return Color(red: colors.text.r, green: colors.text.g, blue: colors.text.b)
     }
 
+    // MARK: - Data Change Callback
+
+    /// iPhone 側で WatchConnectivity に push するためのコールバック
+    var onDataChanged: (() -> Void)?
+
+    private func notifyDataChanged() {
+        onDataChanged?()
+    }
+
     // MARK: - Private
 
     private let defaults: UserDefaults
+    #if os(iOS)
     private var reloadTask: DispatchWorkItem?
+    #endif
 
     // MARK: - Init
 
@@ -102,12 +120,15 @@ final class MemoStore {
     // MARK: - Widget Reload
 
     func reloadWidgetsNow() {
+        #if os(iOS)
         reloadTask?.cancel()
         reloadTask = nil
         WidgetCenter.shared.reloadAllTimelines()
+        #endif
     }
 
     private func scheduleWidgetReload() {
+        #if os(iOS)
         reloadTask?.cancel()
         let task = DispatchWorkItem { [weak self] in
             guard self != nil else { return }
@@ -115,6 +136,7 @@ final class MemoStore {
         }
         reloadTask = task
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.0, execute: task)
+        #endif
     }
 
     // MARK: - Color Persistence

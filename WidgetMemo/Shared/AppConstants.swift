@@ -39,6 +39,17 @@ enum AppConstants {
     static let legacyBackgroundColorKey = "background_color"
     static let legacyTextColorKey = "text_color"
 
+    // MARK: - WatchConnectivity
+
+    static let watchContextBoardsKey = "boards"
+    static let watchContextTimestampKey = "timestamp"
+
+    // MARK: - Watch Font Size
+
+    static let watchDefaultFontSize: Double = 14.0
+    static let watchMinFontSize: Double = 10.0
+    static let watchMaxFontSize: Double = 30.0
+
     // MARK: - URLs
 
     static let aboutURL = URL(string: "https://riverapp.jp/app-document/MemoNow/about")!

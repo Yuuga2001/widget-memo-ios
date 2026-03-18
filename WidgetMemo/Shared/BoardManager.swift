@@ -1,5 +1,7 @@
 import SwiftUI
+#if canImport(WidgetKit)
 import WidgetKit
+#endif
 
 @Observable
 final class BoardManager {
@@ -59,6 +61,8 @@ final class BoardManager {
     // MARK: - Widget
 
     func reloadAllWidgets() {
+        #if os(iOS)
         WidgetCenter.shared.reloadAllTimelines()
+        #endif
     }
 }
