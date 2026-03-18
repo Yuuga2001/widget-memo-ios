@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MemoView: View {
     @Environment(MemoStore.self) private var store
+    @Environment(\.undoManager) private var undoManager
     @State private var showSettings = false
     @State private var isEditingName = false
     @FocusState private var isNameFieldFocused: Bool
@@ -31,6 +32,29 @@ struct MemoView: View {
                     .background(.clear)
             }
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    HStack(spacing: 12) {
+                        Button {
+                            undoManager?.undo()
+                        } label: {
+                            Image(systemName: "arrow.uturn.backward")
+                                .font(.system(size: 17, weight: .light))
+                                .foregroundStyle(.secondary)
+                                .opacity(undoManager?.canUndo == true ? 1.0 : 0.3)
+                        }
+                        .disabled(undoManager?.canUndo != true)
+
+                        Button {
+                            undoManager?.redo()
+                        } label: {
+                            Image(systemName: "arrow.uturn.forward")
+                                .font(.system(size: 17, weight: .light))
+                                .foregroundStyle(.secondary)
+                                .opacity(undoManager?.canRedo == true ? 1.0 : 0.3)
+                        }
+                        .disabled(undoManager?.canRedo != true)
+                    }
+                }
                 ToolbarItem(placement: .principal) {
                     if isEditingName {
                         TextField("ボード名", text: $store.boardName)
