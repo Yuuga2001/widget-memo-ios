@@ -71,6 +71,18 @@ targets:
         GENERATE_INFOPLIST_FILE: true
         TEST_TARGET_NAME: MemoNowWatch
 
+  WidgetMemoUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: WidgetMemoUITests
+    dependencies:
+      - target: WidgetMemo
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: true
+        TEST_TARGET_NAME: WidgetMemo
+
   WidgetMemoTests:
     type: bundle.unit-test
     platform: iOS
@@ -93,12 +105,14 @@ schemes:
         WidgetMemo: all
         WidgetMemoWidgetExtension: all
         WidgetMemoTests: [test]
+        WidgetMemoUITests: [test]
     run:
       config: Debug
     test:
       config: Debug
       targets:
         - WidgetMemoTests
+        - WidgetMemoUITests
     profile:
       config: Release
     analyze:

@@ -2,9 +2,11 @@ import SwiftUI
 
 struct MemoView: View {
     @Environment(MemoStore.self) private var store
-    @Environment(\.undoManager) private var undoManager
     @State private var showSettings = false
     @State private var isEditingName = false
+    @State private var canUndo = false
+    @State private var canRedo = false
+    @State private var textUndoManager = TextUndoManager()
     @FocusState private var isNameFieldFocused: Bool
 
     var body: some View {
@@ -35,24 +37,26 @@ struct MemoView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     HStack(spacing: 12) {
                         Button {
-                            undoManager?.undo()
+                            performUndo()
                         } label: {
                             Image(systemName: "arrow.uturn.backward")
                                 .font(.system(size: 17, weight: .light))
                                 .foregroundStyle(.secondary)
-                                .opacity(undoManager?.canUndo == true ? 1.0 : 0.3)
+                                .opacity(canUndo ? 1.0 : 0.3)
                         }
-                        .disabled(undoManager?.canUndo != true)
+                        .disabled(!canUndo)
+                        .accessibilityIdentifier("undoButton")
 
                         Button {
-                            undoManager?.redo()
+                            performRedo()
                         } label: {
                             Image(systemName: "arrow.uturn.forward")
                                 .font(.system(size: 17, weight: .light))
                                 .foregroundStyle(.secondary)
-                                .opacity(undoManager?.canRedo == true ? 1.0 : 0.3)
+                                .opacity(canRedo ? 1.0 : 0.3)
                         }
-                        .disabled(undoManager?.canRedo != true)
+                        .disabled(!canRedo)
+                        .accessibilityIdentifier("redoButton")
                     }
                 }
                 ToolbarItem(placement: .principal) {
@@ -96,5 +100,80 @@ struct MemoView: View {
             }
         }
         .preferredColorScheme(.light)
+        .onAppear {
+            textUndoManager.initialize(with: store.text)
+        }
+        .onChange(of: store.text) { oldValue, newValue in
+            textUndoManager.textDidChange(newValue)
+            updateUndoState()
+        }
+    }
+
+    private func performUndo() {
+        if let text = textUndoManager.undo() {
+            store.text = text
+            updateUndoState()
+        }
+    }
+
+    private func performRedo() {
+        if let text = textUndoManager.redo() {
+            store.text = text
+            updateUndoState()
+        }
+    }
+
+    private func updateUndoState() {
+        canUndo = textUndoManager.canUndo
+        canRedo = textUndoManager.canRedo
+    }
+}
+
+// MARK: - TextUndoManager
+
+/// テキスト編集の Undo/Redo を管理するシンプルなスタックベースの仕組み
+struct TextUndoManager {
+    private var undoStack: [String] = []
+    private var redoStack: [String] = []
+    private var isPerformingUndoRedo = false
+
+    var canUndo: Bool { undoStack.count > 1 }
+    var canRedo: Bool { !redoStack.isEmpty }
+
+    /// 初期テキストをセット
+    mutating func initialize(with text: String) {
+        if undoStack.isEmpty {
+            undoStack = [text]
+            redoStack = []
+        }
+    }
+
+    /// テキストが変更された時に呼ばれる
+    mutating func textDidChange(_ newText: String) {
+        guard !isPerformingUndoRedo else { return }
+        // 直前と同じなら無視
+        guard undoStack.last != newText else { return }
+        undoStack.append(newText)
+        redoStack.removeAll()
+    }
+
+    /// Undo: 1つ前の状態を返す
+    mutating func undo() -> String? {
+        guard canUndo else { return nil }
+        let current = undoStack.removeLast()
+        redoStack.append(current)
+        isPerformingUndoRedo = true
+        defer { isPerformingUndoRedo = false }
+        return undoStack.last
+    }
+
+    /// Redo: Undo で戻した状態を復元
+    mutating func redo() -> String? {
+        guard canRedo else { return nil }
+        let text = redoStack.removeLast()
+        undoStack.append(text)
+        isPerformingUndoRedo = true
+        defer { isPerformingUndoRedo = false }
+        return text
     }
 }
