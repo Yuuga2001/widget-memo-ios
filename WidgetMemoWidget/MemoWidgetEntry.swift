@@ -7,4 +7,5 @@ struct MemoWidgetEntry: TimelineEntry {
     let fontSize: Double
     let backgroundColor: Color
     let textColor: Color
+    let boardIndex: Int
 }

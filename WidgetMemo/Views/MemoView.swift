@@ -3,6 +3,8 @@ import SwiftUI
 struct MemoView: View {
     @Environment(MemoStore.self) private var store
     @State private var showSettings = false
+    @State private var isEditingName = false
+    @FocusState private var isNameFieldFocused: Bool
 
     var body: some View {
         @Bindable var store = store
@@ -29,6 +31,30 @@ struct MemoView: View {
                     .background(.clear)
             }
             .toolbar {
+                ToolbarItem(placement: .principal) {
+                    if isEditingName {
+                        TextField("ボード名", text: $store.boardName)
+                            .textFieldStyle(.roundedBorder)
+                            .frame(maxWidth: 150)
+                            .focused($isNameFieldFocused)
+                            .onSubmit {
+                                isEditingName = false
+                            }
+                            .onChange(of: isNameFieldFocused) { _, focused in
+                                if !focused {
+                                    isEditingName = false
+                                }
+                            }
+                    } else {
+                        Text(store.boardName)
+                            .font(.headline)
+                            .foregroundStyle(store.textColor.opacity(0.8))
+                            .onTapGesture {
+                                isEditingName = true
+                                isNameFieldFocused = true
+                            }
+                    }
+                }
                 ToolbarItem(placement: .topBarTrailing) {
                     Button {
                         showSettings = true

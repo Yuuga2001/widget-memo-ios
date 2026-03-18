@@ -4,40 +4,57 @@ import WidgetKit
 @Observable
 final class MemoStore {
 
+    // MARK: - Board Identity
+
+    let boardIndex: Int
+
+    var boardName: String {
+        didSet {
+            defaults.set(boardName, forKey: AppConstants.boardNameKey(for: boardIndex))
+        }
+    }
+
     // MARK: - Published State
 
     var text: String {
         didSet {
-            defaults.set(text, forKey: AppConstants.memoTextKey)
+            defaults.set(text, forKey: AppConstants.memoTextKey(for: boardIndex))
             scheduleWidgetReload()
         }
     }
 
     var fontSize: Double {
         didSet {
-            defaults.set(fontSize, forKey: AppConstants.fontSizeKey)
+            defaults.set(fontSize, forKey: AppConstants.fontSizeKey(for: boardIndex))
             scheduleWidgetReload()
         }
     }
 
     var backgroundColor: Color {
         didSet {
-            Self.saveColor(backgroundColor, forKey: AppConstants.backgroundColorKey, in: defaults)
+            Self.saveColor(backgroundColor, forKey: AppConstants.backgroundColorKey(for: boardIndex), in: defaults)
             scheduleWidgetReload()
         }
     }
 
     var textColor: Color {
         didSet {
-            Self.saveColor(textColor, forKey: AppConstants.textColorKey, in: defaults)
+            Self.saveColor(textColor, forKey: AppConstants.textColorKey(for: boardIndex), in: defaults)
             scheduleWidgetReload()
         }
     }
 
     // MARK: - Defaults
 
-    static let defaultBackgroundColor = Color(red: 0.0, green: 0.573, blue: 0.890)
-    static let defaultTextColor = Color.white
+    var defaultBackgroundColor: Color {
+        let colors = AppConstants.defaultBoardColors[boardIndex]
+        return Color(red: colors.bg.r, green: colors.bg.g, blue: colors.bg.b)
+    }
+
+    var defaultTextColor: Color {
+        let colors = AppConstants.defaultBoardColors[boardIndex]
+        return Color(red: colors.text.r, green: colors.text.g, blue: colors.text.b)
+    }
 
     // MARK: - Private
 
@@ -46,15 +63,21 @@ final class MemoStore {
 
     // MARK: - Init
 
-    init(defaults: UserDefaults? = nil) {
+    init(boardIndex: Int = 0, defaults: UserDefaults? = nil) {
         let ud = defaults ?? UserDefaults(suiteName: AppConstants.appGroupID) ?? .standard
         self.defaults = ud
+        self.boardIndex = boardIndex
 
-        let savedFontSize = ud.double(forKey: AppConstants.fontSizeKey)
-        self.text = ud.string(forKey: AppConstants.memoTextKey) ?? AppConstants.defaultText
+        let colors = AppConstants.defaultBoardColors[boardIndex]
+        let defaultBg = Color(red: colors.bg.r, green: colors.bg.g, blue: colors.bg.b)
+        let defaultText = Color(red: colors.text.r, green: colors.text.g, blue: colors.text.b)
+
+        let savedFontSize = ud.double(forKey: AppConstants.fontSizeKey(for: boardIndex))
+        self.text = ud.string(forKey: AppConstants.memoTextKey(for: boardIndex)) ?? AppConstants.defaultText
         self.fontSize = savedFontSize > 0 ? savedFontSize : AppConstants.defaultFontSize
-        self.backgroundColor = Self.loadColor(from: ud, key: AppConstants.backgroundColorKey) ?? Self.defaultBackgroundColor
-        self.textColor = Self.loadColor(from: ud, key: AppConstants.textColorKey) ?? Self.defaultTextColor
+        self.backgroundColor = Self.loadColor(from: ud, key: AppConstants.backgroundColorKey(for: boardIndex)) ?? defaultBg
+        self.textColor = Self.loadColor(from: ud, key: AppConstants.textColorKey(for: boardIndex)) ?? defaultText
+        self.boardName = ud.string(forKey: AppConstants.boardNameKey(for: boardIndex)) ?? AppConstants.defaultBoardNames[boardIndex]
     }
 
     // MARK: - Reset & Delete
@@ -62,8 +85,8 @@ final class MemoStore {
     /// フォントサイズ・背景色・文字色をデフォルトに戻す（メモ内容は保持）
     func resetToDefaults() {
         fontSize = AppConstants.defaultFontSize
-        backgroundColor = Self.defaultBackgroundColor
-        textColor = Self.defaultTextColor
+        backgroundColor = defaultBackgroundColor
+        textColor = defaultTextColor
         reloadWidgetsNow()
     }
 
@@ -71,8 +94,8 @@ final class MemoStore {
     func deleteAllData() {
         text = AppConstants.defaultText
         fontSize = AppConstants.defaultFontSize
-        backgroundColor = Self.defaultBackgroundColor
-        textColor = Self.defaultTextColor
+        backgroundColor = defaultBackgroundColor
+        textColor = defaultTextColor
         reloadWidgetsNow()
     }
 

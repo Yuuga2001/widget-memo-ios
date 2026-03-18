@@ -4,9 +4,9 @@ import SwiftUI
 
 struct MemoStoreTests {
 
-    private func makeStore() -> (MemoStore, UserDefaults) {
+    private func makeStore(boardIndex: Int = 0) -> (MemoStore, UserDefaults) {
         let defaults = UserDefaults(suiteName: "test.\(UUID().uuidString)")!
-        let store = MemoStore(defaults: defaults)
+        let store = MemoStore(boardIndex: boardIndex, defaults: defaults)
         return (store, defaults)
     }
 
@@ -18,8 +18,8 @@ struct MemoStoreTests {
         #expect(store.fontSize == AppConstants.defaultFontSize)
     }
 
-    @Test func initialState_hasDefaultColors() {
-        let (store, _) = makeStore()
+    @Test func initialState_board0HasBlueBackground() {
+        let (store, _) = makeStore(boardIndex: 0)
         let bgUI = UIColor(store.backgroundColor)
         var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
         bgUI.getRed(&r, green: &g, blue: &b, alpha: &a)
@@ -34,16 +34,91 @@ struct MemoStoreTests {
         #expect(abs(b - 1.0) < 0.01)
     }
 
+    @Test func initialState_board1HasGreenBackground() {
+        let (store, _) = makeStore(boardIndex: 1)
+        let bgUI = UIColor(store.backgroundColor)
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        bgUI.getRed(&r, green: &g, blue: &b, alpha: &a)
+        #expect(abs(r - 0.298) < 0.01)
+        #expect(abs(g - 0.686) < 0.01)
+        #expect(abs(b - 0.314) < 0.01)
+    }
+
+    @Test func initialState_board2HasRedBackground() {
+        let (store, _) = makeStore(boardIndex: 2)
+        let bgUI = UIColor(store.backgroundColor)
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        bgUI.getRed(&r, green: &g, blue: &b, alpha: &a)
+        #expect(abs(r - 0.898) < 0.01)
+        #expect(abs(g - 0.224) < 0.01)
+        #expect(abs(b - 0.208) < 0.01)
+    }
+
+    @Test func initialState_board3HasWhiteBackgroundBlackText() {
+        let (store, _) = makeStore(boardIndex: 3)
+        let bgUI = UIColor(store.backgroundColor)
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        bgUI.getRed(&r, green: &g, blue: &b, alpha: &a)
+        #expect(abs(r - 1.0) < 0.01)
+        #expect(abs(g - 1.0) < 0.01)
+        #expect(abs(b - 1.0) < 0.01)
+
+        let textUI = UIColor(store.textColor)
+        textUI.getRed(&r, green: &g, blue: &b, alpha: &a)
+        #expect(abs(r - 0.0) < 0.01)
+        #expect(abs(g - 0.0) < 0.01)
+        #expect(abs(b - 0.0) < 0.01)
+    }
+
+    // MARK: - Board Name
+
+    @Test func boardName_defaultValue() {
+        let (store, _) = makeStore(boardIndex: 0)
+        #expect(store.boardName == "1")
+
+        let (store2, _) = makeStore(boardIndex: 2)
+        #expect(store2.boardName == "3")
+    }
+
+    @Test func boardName_persistence() {
+        let suiteName = "test.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suiteName)!
+
+        let store1 = MemoStore(boardIndex: 1, defaults: defaults)
+        store1.boardName = "買い物リスト"
+
+        let store2 = MemoStore(boardIndex: 1, defaults: defaults)
+        #expect(store2.boardName == "買い物リスト")
+    }
+
+    // MARK: - Board Key Independence
+
+    @Test func boardKeys_areIndependent() {
+        let suiteName = "test.\(UUID().uuidString)"
+        let defaults = UserDefaults(suiteName: suiteName)!
+
+        let board0 = MemoStore(boardIndex: 0, defaults: defaults)
+        let board1 = MemoStore(boardIndex: 1, defaults: defaults)
+
+        board0.text = "ボード0のメモ"
+        board1.text = "ボード1のメモ"
+
+        let reloaded0 = MemoStore(boardIndex: 0, defaults: defaults)
+        let reloaded1 = MemoStore(boardIndex: 1, defaults: defaults)
+        #expect(reloaded0.text == "ボード0のメモ")
+        #expect(reloaded1.text == "ボード1のメモ")
+    }
+
     // MARK: - Text Persistence
 
     @Test func textPersistence_savesAndLoads() {
         let suiteName = "test.\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: suiteName)!
 
-        let store1 = MemoStore(defaults: defaults)
+        let store1 = MemoStore(boardIndex: 0, defaults: defaults)
         store1.text = "テストメモ"
 
-        let store2 = MemoStore(defaults: defaults)
+        let store2 = MemoStore(boardIndex: 0, defaults: defaults)
         #expect(store2.text == "テストメモ")
     }
 
@@ -52,7 +127,7 @@ struct MemoStoreTests {
         store.text = "何か"
         store.text = ""
 
-        let reloaded = MemoStore(defaults: defaults)
+        let reloaded = MemoStore(boardIndex: 0, defaults: defaults)
         #expect(reloaded.text == "")
     }
 
@@ -61,7 +136,7 @@ struct MemoStoreTests {
         let longText = String(repeating: "あ", count: 10000)
         store.text = longText
 
-        let reloaded = MemoStore(defaults: defaults)
+        let reloaded = MemoStore(boardIndex: 0, defaults: defaults)
         #expect(reloaded.text == longText)
     }
 
@@ -71,10 +146,10 @@ struct MemoStoreTests {
         let suiteName = "test.\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: suiteName)!
 
-        let store1 = MemoStore(defaults: defaults)
+        let store1 = MemoStore(boardIndex: 0, defaults: defaults)
         store1.fontSize = 24.0
 
-        let store2 = MemoStore(defaults: defaults)
+        let store2 = MemoStore(boardIndex: 0, defaults: defaults)
         #expect(store2.fontSize == 24.0)
     }
 
@@ -87,7 +162,7 @@ struct MemoStoreTests {
         let (store, defaults) = makeStore()
         store.fontSize = AppConstants.minFontSize
 
-        let reloaded = MemoStore(defaults: defaults)
+        let reloaded = MemoStore(boardIndex: 0, defaults: defaults)
         #expect(reloaded.fontSize == AppConstants.minFontSize)
     }
 
@@ -95,7 +170,7 @@ struct MemoStoreTests {
         let (store, defaults) = makeStore()
         store.fontSize = AppConstants.maxFontSize
 
-        let reloaded = MemoStore(defaults: defaults)
+        let reloaded = MemoStore(boardIndex: 0, defaults: defaults)
         #expect(reloaded.fontSize == AppConstants.maxFontSize)
     }
 
@@ -105,15 +180,15 @@ struct MemoStoreTests {
         let suiteName = "test.\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: suiteName)!
 
-        let store1 = MemoStore(defaults: defaults)
+        let store1 = MemoStore(boardIndex: 0, defaults: defaults)
         let testColor = Color(red: 0.5, green: 0.3, blue: 0.8, opacity: 1.0)
         store1.backgroundColor = testColor
 
-        let saved = defaults.array(forKey: AppConstants.backgroundColorKey) as? [Double]
+        let saved = defaults.array(forKey: AppConstants.backgroundColorKey(for: 0)) as? [Double]
         #expect(saved != nil)
         #expect(saved?.count == 4)
 
-        let store2 = MemoStore(defaults: defaults)
+        let store2 = MemoStore(boardIndex: 0, defaults: defaults)
         let loaded = store2.backgroundColor
         let uiLoaded = UIColor(loaded)
         var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
@@ -127,11 +202,11 @@ struct MemoStoreTests {
         let suiteName = "test.\(UUID().uuidString)"
         let defaults = UserDefaults(suiteName: suiteName)!
 
-        let store1 = MemoStore(defaults: defaults)
+        let store1 = MemoStore(boardIndex: 0, defaults: defaults)
         let testColor = Color(red: 0.1, green: 0.9, blue: 0.4, opacity: 1.0)
         store1.textColor = testColor
 
-        let store2 = MemoStore(defaults: defaults)
+        let store2 = MemoStore(boardIndex: 0, defaults: defaults)
         let loaded = store2.textColor
         let uiLoaded = UIColor(loaded)
         var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
@@ -203,7 +278,7 @@ struct MemoStoreTests {
     // MARK: - Reset to Defaults
 
     @Test func resetToDefaults_restoresSettings_keepsText() {
-        let (store, defaults) = makeStore()
+        let (store, defaults) = makeStore(boardIndex: 0)
         store.text = "大切なメモ"
         store.fontSize = 36.0
         store.backgroundColor = Color(red: 1.0, green: 0.0, blue: 0.0)
@@ -228,15 +303,36 @@ struct MemoStoreTests {
         #expect(abs(b - 1.0) < 0.01)
 
         // Persistence check
-        let reloaded = MemoStore(defaults: defaults)
+        let reloaded = MemoStore(boardIndex: 0, defaults: defaults)
         #expect(reloaded.text == "大切なメモ")
         #expect(reloaded.fontSize == AppConstants.defaultFontSize)
+    }
+
+    @Test func resetToDefaults_board3_restoresWhiteBackground() {
+        let (store, _) = makeStore(boardIndex: 3)
+        store.backgroundColor = Color(red: 0.5, green: 0.5, blue: 0.5)
+        store.textColor = Color.white
+
+        store.resetToDefaults()
+
+        let bgUI = UIColor(store.backgroundColor)
+        var r: CGFloat = 0, g: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        bgUI.getRed(&r, green: &g, blue: &b, alpha: &a)
+        #expect(abs(r - 1.0) < 0.01)
+        #expect(abs(g - 1.0) < 0.01)
+        #expect(abs(b - 1.0) < 0.01)
+
+        let textUI = UIColor(store.textColor)
+        textUI.getRed(&r, green: &g, blue: &b, alpha: &a)
+        #expect(abs(r - 0.0) < 0.01)
+        #expect(abs(g - 0.0) < 0.01)
+        #expect(abs(b - 0.0) < 0.01)
     }
 
     // MARK: - Delete All Data
 
     @Test func deleteAllData_resetsEverything() {
-        let (store, defaults) = makeStore()
+        let (store, defaults) = makeStore(boardIndex: 0)
         store.text = "消えるメモ"
         store.fontSize = 42.0
         store.backgroundColor = Color(red: 1.0, green: 0.0, blue: 0.0)
@@ -255,7 +351,7 @@ struct MemoStoreTests {
         #expect(abs(b - 0.890) < 0.01)
 
         // Persistence check
-        let reloaded = MemoStore(defaults: defaults)
+        let reloaded = MemoStore(boardIndex: 0, defaults: defaults)
         #expect(reloaded.text == AppConstants.defaultText)
         #expect(reloaded.fontSize == AppConstants.defaultFontSize)
     }
@@ -268,17 +364,30 @@ struct MemoStoreTests {
         #expect(AppConstants.defaultFontSize <= AppConstants.maxFontSize)
     }
 
-    @Test func appConstants_keysAreUnique() {
-        let keys = [
-            AppConstants.memoTextKey,
-            AppConstants.fontSizeKey,
-            AppConstants.backgroundColorKey,
-            AppConstants.textColorKey,
-        ]
-        #expect(Set(keys).count == keys.count)
+    @Test func appConstants_boardKeysAreUnique() {
+        for board in 0..<AppConstants.boardCount {
+            let keys = [
+                AppConstants.memoTextKey(for: board),
+                AppConstants.fontSizeKey(for: board),
+                AppConstants.backgroundColorKey(for: board),
+                AppConstants.textColorKey(for: board),
+                AppConstants.boardNameKey(for: board),
+            ]
+            #expect(Set(keys).count == keys.count)
+        }
+
+        // Cross-board uniqueness
+        let allTextKeys = (0..<AppConstants.boardCount).map { AppConstants.memoTextKey(for: $0) }
+        #expect(Set(allTextKeys).count == allTextKeys.count)
     }
 
     @Test func appConstants_widgetKindsAreUnique() {
         #expect(AppConstants.widgetKind != AppConstants.lockScreenWidgetKind)
+    }
+
+    @Test func appConstants_boardCount() {
+        #expect(AppConstants.boardCount == 4)
+        #expect(AppConstants.defaultBoardNames.count == AppConstants.boardCount)
+        #expect(AppConstants.defaultBoardColors.count == AppConstants.boardCount)
     }
 }

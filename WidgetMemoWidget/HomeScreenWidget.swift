@@ -11,6 +11,7 @@ struct HomeScreenWidgetEntryView: View {
             .foregroundStyle(entry.textColor)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .multilineTextAlignment(.leading)
+            .widgetURL(URL(string: "memonow://board/\(entry.boardIndex)"))
             .containerBackground(for: .widget) {
                 ZStack {
                     Color.white
@@ -42,7 +43,7 @@ struct HomeScreenWidget: Widget {
     let kind = AppConstants.widgetKind
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: MemoTimelineProvider()) { entry in
+        AppIntentConfiguration(kind: kind, intent: SelectBoardIntent.self, provider: MemoTimelineProvider()) { entry in
             HomeScreenWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("MemoNow")

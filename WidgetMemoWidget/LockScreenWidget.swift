@@ -6,16 +6,19 @@ struct LockScreenWidgetEntryView: View {
     @Environment(\.widgetFamily) var family
 
     var body: some View {
-        switch family {
-        case .accessoryRectangular:
-            rectangularView
-        case .accessoryCircular:
-            circularView
-        case .accessoryInline:
-            inlineView
-        default:
-            Text(entry.text)
+        Group {
+            switch family {
+            case .accessoryRectangular:
+                rectangularView
+            case .accessoryCircular:
+                circularView
+            case .accessoryInline:
+                inlineView
+            default:
+                Text(entry.text)
+            }
         }
+        .widgetURL(URL(string: "memonow://board/\(entry.boardIndex)"))
     }
 
     private var rectangularView: some View {
@@ -44,7 +47,7 @@ struct LockScreenWidget: Widget {
     let kind = AppConstants.lockScreenWidgetKind
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: MemoTimelineProvider()) { entry in
+        AppIntentConfiguration(kind: kind, intent: SelectBoardIntent.self, provider: MemoTimelineProvider()) { entry in
             LockScreenWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("MemoNow")

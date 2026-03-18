@@ -52,7 +52,7 @@ struct SettingsSheet: View {
                         store.resetToDefaults()
                     }
 
-                    Button("すべてのデータを削除", role: .destructive) {
+                    Button("このボードのデータを削除", role: .destructive) {
                         showDeleteConfirm = true
                     }
                 }
@@ -108,7 +108,7 @@ struct SettingsSheet: View {
                     store.deleteAllData()
                 }
             } message: {
-                Text("メモの内容とすべての設定が初期化されます。この操作は取り消せません。")
+                Text("このボードのメモ内容とすべての設定が初期化されます。この操作は取り消せません。")
             }
         }
         .presentationDetents([.medium, .large])
