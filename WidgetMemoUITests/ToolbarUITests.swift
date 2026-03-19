@@ -96,12 +96,14 @@ final class ToolbarUITests: XCTestCase {
     // MARK: - ツールバー全体
 
     func testAllToolbarButtonsExist() throws {
+        let snapshotButton = app.buttons["snapshotButton"]
         let undoButton = app.buttons["undoButton"]
         let redoButton = app.buttons["redoButton"]
         let copyButton = app.buttons["copyButton"]
         let helpButton = app.buttons["helpButton"]
 
-        XCTAssertTrue(undoButton.waitForExistence(timeout: 5), "Undo ボタンが存在すべき")
+        XCTAssertTrue(snapshotButton.waitForExistence(timeout: 5), "スナップショットボタンが存在すべき")
+        XCTAssertTrue(undoButton.exists, "Undo ボタンが存在すべき")
         XCTAssertTrue(redoButton.exists, "Redo ボタンが存在すべき")
         XCTAssertTrue(copyButton.exists, "コピーボタンが存在すべき")
         XCTAssertTrue(helpButton.exists, "ヘルプボタンが存在すべき")
