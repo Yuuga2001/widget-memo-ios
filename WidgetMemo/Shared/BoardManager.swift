@@ -66,6 +66,10 @@ final class BoardManager {
             board.deleteAllData()
             board.boardName = AppConstants.defaultBoardNames[board.boardIndex]
         }
+        // バックアップも全削除
+        for i in 0..<AppConstants.boardCount {
+            defaults.removeObject(forKey: AppConstants.snapshotKey(for: i))
+        }
         selectedIndex = 0
         reloadAllWidgets()
     }

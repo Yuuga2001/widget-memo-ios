@@ -108,12 +108,13 @@ final class MemoStore {
         reloadWidgetsNow()
     }
 
-    /// すべてのデータを初期化する
+    /// すべてのデータを初期化する（バックアップも削除）
     func deleteAllData() {
         text = AppConstants.defaultText
         fontSize = AppConstants.defaultFontSize
         backgroundColor = defaultBackgroundColor
         textColor = defaultTextColor
+        defaults.removeObject(forKey: AppConstants.snapshotKey(for: boardIndex))
         reloadWidgetsNow()
     }
 

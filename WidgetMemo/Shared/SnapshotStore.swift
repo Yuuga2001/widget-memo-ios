@@ -71,6 +71,18 @@ final class SnapshotStore {
         saveSnapshots(list, for: boardIndex)
     }
 
+    /// 指定ボードの全スナップショットを削除
+    func deleteAll(for boardIndex: Int) {
+        defaults.removeObject(forKey: AppConstants.snapshotKey(for: boardIndex))
+    }
+
+    /// 全ボードの全スナップショットを削除
+    func deleteAllSnapshots() {
+        for i in 0..<AppConstants.boardCount {
+            deleteAll(for: i)
+        }
+    }
+
     // MARK: - Private
 
     private func loadSnapshots(for boardIndex: Int) -> [BoardSnapshot] {
