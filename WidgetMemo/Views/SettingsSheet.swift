@@ -114,7 +114,7 @@ struct SettingsSheet: View {
                     store.deleteAllData()
                 }
             } message: {
-                Text("このボードのメモ内容とすべての設定が初期化されます。この操作は取り消せません。")
+                Text("このボードのメモ内容・設定・バックアップがすべて初期化されます。この操作は取り消せません。")
             }
             .alert("すべてのデータを削除しますか？", isPresented: $showDeleteAllConfirm) {
                 Button("キャンセル", role: .cancel) {}
@@ -123,7 +123,7 @@ struct SettingsSheet: View {
                     dismiss()
                 }
             } message: {
-                Text("全 4 ボードのメモ内容・設定・ボード名がすべて初期化されます。この操作は取り消せません。")
+                Text("全 4 ボードのメモ内容・設定・ボード名・バックアップがすべて初期化されます。この操作は取り消せません。")
             }
         }
         .presentationDetents([.medium, .large])
