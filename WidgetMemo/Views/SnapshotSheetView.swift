@@ -43,7 +43,7 @@ struct SnapshotSheetView: View {
                 // スナップショット一覧
                 if snapshots.isEmpty {
                     Spacer()
-                    Text("保存された\n履歴はありません")
+                    Text("バックアップは\nありません")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -78,7 +78,7 @@ struct SnapshotSheetView: View {
                     .listStyle(.plain)
                 }
             }
-            .navigationTitle("保存履歴")
+            .navigationTitle("バックアップ")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
