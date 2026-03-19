@@ -3,6 +3,7 @@ import SwiftUI
 struct MemoView: View {
     @Environment(MemoStore.self) private var store
     @State private var showSettings = false
+    @State private var showHelp = false
     @State private var isEditingName = false
     @State private var canUndo = false
     @State private var canRedo = false
@@ -84,12 +85,23 @@ struct MemoView: View {
                     }
                 }
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button {
-                        showSettings = true
-                    } label: {
-                        Image(systemName: "gearshape")
-                            .font(.system(size: 17, weight: .light))
-                            .foregroundStyle(.secondary)
+                    HStack(spacing: 12) {
+                        Button {
+                            showHelp = true
+                        } label: {
+                            Image(systemName: "questionmark.circle")
+                                .font(.system(size: 17, weight: .light))
+                                .foregroundStyle(.secondary)
+                        }
+                        .accessibilityIdentifier("helpButton")
+
+                        Button {
+                            showSettings = true
+                        } label: {
+                            Image(systemName: "gearshape")
+                                .font(.system(size: 17, weight: .light))
+                                .foregroundStyle(.secondary)
+                        }
                     }
                 }
             }
@@ -97,6 +109,9 @@ struct MemoView: View {
             .sheet(isPresented: $showSettings) {
                 SettingsSheet()
                     .environment(store)
+            }
+            .sheet(isPresented: $showHelp) {
+                HelpGuideView()
             }
         }
         .preferredColorScheme(.light)
