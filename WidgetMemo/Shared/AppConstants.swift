@@ -31,6 +31,7 @@ enum AppConstants {
     static func backgroundColorKey(for board: Int) -> String { "board_\(board)_background_color" }
     static func textColorKey(for board: Int) -> String { "board_\(board)_text_color" }
     static func boardNameKey(for board: Int) -> String { "board_\(board)_name" }
+    static func snapshotKey(for board: Int) -> String { "board_\(board)_snapshots" }
 
     // MARK: - Legacy Keys (for migration)
 
