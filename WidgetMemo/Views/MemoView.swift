@@ -2,6 +2,7 @@ import SwiftUI
 
 struct MemoView: View {
     @Environment(MemoStore.self) private var store
+    @Environment(BoardManager.self) private var manager
     @State private var showSettings = false
     @State private var showHelp = false
     @State private var isEditingName = false
@@ -109,6 +110,7 @@ struct MemoView: View {
             .sheet(isPresented: $showSettings) {
                 SettingsSheet()
                     .environment(store)
+                    .environment(manager)
             }
             .sheet(isPresented: $showHelp) {
                 HelpGuideView()

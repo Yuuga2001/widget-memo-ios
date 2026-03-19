@@ -2,8 +2,10 @@ import SwiftUI
 
 struct SettingsSheet: View {
     @Environment(MemoStore.self) private var store
+    @Environment(BoardManager.self) private var manager
     @Environment(\.dismiss) private var dismiss
     @State private var showDeleteConfirm = false
+    @State private var showDeleteAllConfirm = false
     @State private var safariURL: URL?
 
     var body: some View {
@@ -54,6 +56,10 @@ struct SettingsSheet: View {
 
                     Button("このボードのデータを削除", role: .destructive) {
                         showDeleteConfirm = true
+                    }
+
+                    Button("すべてのデータを削除", role: .destructive) {
+                        showDeleteAllConfirm = true
                     }
                 }
 
@@ -109,6 +115,15 @@ struct SettingsSheet: View {
                 }
             } message: {
                 Text("このボードのメモ内容とすべての設定が初期化されます。この操作は取り消せません。")
+            }
+            .alert("すべてのデータを削除しますか？", isPresented: $showDeleteAllConfirm) {
+                Button("キャンセル", role: .cancel) {}
+                Button("すべて削除する", role: .destructive) {
+                    manager.deleteAllData()
+                    dismiss()
+                }
+            } message: {
+                Text("全 4 ボードのメモ内容・設定・ボード名がすべて初期化されます。この操作は取り消せません。")
             }
         }
         .presentationDetents([.medium, .large])

@@ -58,6 +58,18 @@ final class BoardManager {
         defaults.set(true, forKey: AppConstants.dataMigratedKey)
     }
 
+    // MARK: - Delete All
+
+    /// 全ボードのデータを初期化し、選択インデックスもリセットする
+    func deleteAllData() {
+        for board in boards {
+            board.deleteAllData()
+            board.boardName = AppConstants.defaultBoardNames[board.boardIndex]
+        }
+        selectedIndex = 0
+        reloadAllWidgets()
+    }
+
     // MARK: - Widget
 
     func reloadAllWidgets() {
