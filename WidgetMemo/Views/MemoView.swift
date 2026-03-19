@@ -134,6 +134,7 @@ struct MemoView: View {
             }
             .sheet(isPresented: $showHelp) {
                 HelpGuideView()
+                    .presentationDetents([.medium, .large])
             }
         }
         .preferredColorScheme(.light)
