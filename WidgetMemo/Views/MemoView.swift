@@ -88,6 +88,15 @@ struct MemoView: View {
                 ToolbarItem(placement: .topBarTrailing) {
                     HStack(spacing: 12) {
                         Button {
+                            UIPasteboard.general.string = store.text
+                        } label: {
+                            Image(systemName: "doc.on.doc")
+                                .font(.system(size: 17, weight: .light))
+                                .foregroundStyle(.secondary)
+                        }
+                        .accessibilityIdentifier("copyButton")
+
+                        Button {
                             showHelp = true
                         } label: {
                             Image(systemName: "questionmark.circle")
