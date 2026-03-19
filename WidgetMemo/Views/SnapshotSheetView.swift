@@ -43,7 +43,7 @@ struct SnapshotSheetView: View {
                 // スナップショット一覧
                 if snapshots.isEmpty {
                     Spacer()
-                    Text("保存された\nバージョンはありません")
+                    Text("保存された\n履歴はありません")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -78,7 +78,7 @@ struct SnapshotSheetView: View {
                     .listStyle(.plain)
                 }
             }
-            .navigationTitle("バージョン管理")
+            .navigationTitle("保存履歴")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -93,7 +93,7 @@ struct SnapshotSheetView: View {
             .onAppear {
                 reloadSnapshots()
             }
-            .alert("このバージョンに戻しますか？", isPresented: $showRestoreConfirm) {
+            .alert("この状態に戻しますか？", isPresented: $showRestoreConfirm) {
                 Button("キャンセル", role: .cancel) {
                     selectedSnapshot = nil
                 }

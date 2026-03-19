@@ -29,8 +29,8 @@ final class SnapshotSheetUITests: XCTestCase {
         XCTAssertTrue(button.waitForExistence(timeout: 5))
         button.tap()
 
-        let title = app.staticTexts["バージョン管理"]
-        XCTAssertTrue(title.waitForExistence(timeout: 5), "バージョン管理シートが表示されるべき")
+        let title = app.staticTexts["保存履歴"]
+        XCTAssertTrue(title.waitForExistence(timeout: 5), "保存履歴シートが表示されるべき")
     }
 
     func testSheetShowsSaveButton() throws {
@@ -47,7 +47,7 @@ final class SnapshotSheetUITests: XCTestCase {
         XCTAssertTrue(button.waitForExistence(timeout: 5))
         button.tap()
 
-        let title = app.navigationBars["バージョン管理"]
+        let title = app.navigationBars["保存履歴"]
         XCTAssertTrue(title.waitForExistence(timeout: 5), "ナビゲーションタイトルが表示されるべき")
     }
 
@@ -58,11 +58,11 @@ final class SnapshotSheetUITests: XCTestCase {
         XCTAssertTrue(button.waitForExistence(timeout: 5))
         button.tap()
 
-        let title = app.staticTexts["バージョン管理"]
+        let title = app.staticTexts["保存履歴"]
         XCTAssertTrue(title.waitForExistence(timeout: 5))
 
         // ナビゲーションバー内の閉じるボタン
-        let navBar = app.navigationBars["バージョン管理"]
+        let navBar = app.navigationBars["保存履歴"]
         let closeButton = navBar.buttons.firstMatch
         if closeButton.waitForExistence(timeout: 3) {
             closeButton.tap()
