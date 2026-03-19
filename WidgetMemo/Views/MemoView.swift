@@ -5,7 +5,7 @@ struct MemoView: View {
     @Environment(BoardManager.self) private var manager
     @State private var showSettings = false
     @State private var showHelp = false
-    @State private var showSidebar = false
+    @State private var showSnapshots = false
     @State private var snapshotStore = SnapshotStore()
     @State private var isEditingName = false
     @State private var canUndo = false
@@ -41,15 +41,13 @@ struct MemoView: View {
                 ToolbarItem(placement: .topBarLeading) {
                     HStack(spacing: 12) {
                         Button {
-                            withAnimation(.easeInOut(duration: 0.25)) {
-                                showSidebar.toggle()
-                            }
+                            showSnapshots = true
                         } label: {
-                            Image(systemName: "sidebar.left")
+                            Image(systemName: "clock.arrow.circlepath")
                                 .font(.system(size: 17, weight: .light))
                                 .foregroundStyle(.secondary)
                         }
-                        .accessibilityIdentifier("sidebarButton")
+                        .accessibilityIdentifier("snapshotButton")
 
                         Button {
                             performUndo()
@@ -139,30 +137,12 @@ struct MemoView: View {
             }
         }
         .preferredColorScheme(.light)
-        .overlay {
-            if showSidebar {
-                GeometryReader { geometry in
-                    ZStack(alignment: .leading) {
-                        // 背景ディマー
-                        Color.black.opacity(0.3)
-                            .ignoresSafeArea()
-                            .onTapGesture {
-                                withAnimation(.easeInOut(duration: 0.25)) {
-                                    showSidebar = false
-                                }
-                            }
-
-                        // サイドバー
-                        SnapshotSidebarView(
-                            store: store,
-                            snapshotStore: snapshotStore,
-                            isPresented: $showSidebar
-                        )
-                        .frame(width: geometry.size.width * 0.6)
-                        .transition(.move(edge: .leading))
-                    }
-                }
-            }
+        .sheet(isPresented: $showSnapshots) {
+            SnapshotSheetView(
+                store: store,
+                snapshotStore: snapshotStore
+            )
+            .presentationDetents([.medium, .large])
         }
         .onAppear {
             textUndoManager.initialize(with: store.text)
