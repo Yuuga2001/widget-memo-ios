@@ -12,6 +12,8 @@ struct MemoView: View {
     @State private var canRedo = false
     @State private var textUndoManager = TextUndoManager()
     @State private var showCopiedToast = false
+    @AppStorage("hasLaunchedBefore") private var hasLaunchedBefore = false
+    @State private var isFirstLaunchHelp = false
     @FocusState private var isNameFieldFocused: Bool
 
     var body: some View {
@@ -164,8 +166,12 @@ struct MemoView: View {
                     .environment(manager)
             }
             .sheet(isPresented: $showHelp) {
-                HelpGuideView()
-                    .presentationDetents([.medium, .large])
+                if isFirstLaunchHelp {
+                    HelpGuideView()
+                } else {
+                    HelpGuideView()
+                        .presentationDetents([.medium, .large])
+                }
             }
         }
         .preferredColorScheme(.light)
@@ -178,6 +184,11 @@ struct MemoView: View {
         }
         .onAppear {
             textUndoManager.initialize(with: store.text)
+            if !hasLaunchedBefore {
+                isFirstLaunchHelp = true
+                showHelp = true
+                hasLaunchedBefore = true
+            }
         }
         .onChange(of: store.text) { oldValue, newValue in
             textUndoManager.textDidChange(newValue)
