@@ -11,6 +11,7 @@ struct MemoView: View {
     @State private var canUndo = false
     @State private var canRedo = false
     @State private var textUndoManager = TextUndoManager()
+    @State private var showCopiedToast = false
     @FocusState private var isNameFieldFocused: Bool
 
     var body: some View {
@@ -36,6 +37,28 @@ struct MemoView: View {
                     .foregroundStyle(store.textColor)
                     .scrollContentBackground(.hidden)
                     .background(.clear)
+
+                if showCopiedToast {
+                    VStack {
+                        Spacer()
+                        HStack(spacing: 8) {
+                            Image(systemName: "checkmark.circle.fill")
+                            Text("Copied to clipboard")
+                        }
+                        .font(.subheadline)
+                        .fontWeight(.medium)
+                        .foregroundStyle(.white)
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background(
+                            Capsule()
+                                .fill(.black.opacity(0.75))
+                        )
+                        .padding(.bottom, 20)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                    }
+                    .allowsHitTesting(false)
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
@@ -100,6 +123,14 @@ struct MemoView: View {
                     HStack(spacing: 12) {
                         Button {
                             UIPasteboard.general.string = store.text
+                            withAnimation(.spring(response: 0.3)) {
+                                showCopiedToast = true
+                            }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                withAnimation(.easeOut(duration: 0.3)) {
+                                    showCopiedToast = false
+                                }
+                            }
                         } label: {
                             Image(systemName: "doc.on.doc")
                                 .font(.system(size: 17, weight: .light))

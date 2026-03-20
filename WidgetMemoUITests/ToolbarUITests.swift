@@ -65,9 +65,9 @@ final class ToolbarUITests: XCTestCase {
         XCTAssertTrue(helpButton.waitForExistence(timeout: 5))
         helpButton.tap()
 
-        let widgetSection = app.staticTexts["How to Add Widgets"]
+        let widgetSection = app.staticTexts["Quick Add from App Icon"]
         XCTAssertTrue(widgetSection.waitForExistence(timeout: 5),
-                      "ウィジェットの追加方法セクションが表示されるべき")
+                      "アプリアイコンからの追加セクションが表示されるべき")
     }
 
     func testHelpGuideCanBeDismissed() throws {

@@ -1,77 +1,375 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "No memo" : {
+    "%@" : {
+
+    },
+    "Board" : {
+
+    },
+    "Display memo on lock screen" : {
       "localizations" : {
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "メモなし" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "无备忘录" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "無備忘錄" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "메모 없음" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Aucun mémo" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Kein Memo" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Sin memo" } },
-        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Sem memo" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Nessun memo" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Нет заметок" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "ไม่มีบันทึก" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Tidak ada memo" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Không có ghi chú" } },
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "لا توجد مذكرة" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عرض المذكرة على شاشة القفل"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Memo auf Sperrbildschirm anzeigen"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostrar memo en pantalla de bloqueo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afficher le mémo sur l'écran verrouillé"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tampilkan memo di layar kunci"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra memo nella schermata di blocco"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メモをロック画面に表示"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "잠금 화면에 메모 표시"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exibir memo na tela de bloqueio"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Показать заметку на экране блокировки"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แสดงบันทึกบนหน้าจอล็อก"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiển thị ghi chú trên màn hình khóa"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在锁定屏幕显示备忘录"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在鎖定畫面顯示備忘錄"
+          }
+        }
       }
     },
     "Displays memo content" : {
       "localizations" : {
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "メモの内容を表示します" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "显示备忘录内容" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "顯示備忘錄內容" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "메모 내용을 표시합니다" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Affiche le contenu du mémo" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Zeigt Memo-Inhalt an" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Muestra el contenido del memo" } },
-        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Exibe o conteúdo do memo" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Mostra il contenuto del memo" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Отображает содержимое заметки" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "แสดงเนื้อหาบันทึก" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Menampilkan isi memo" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hiển thị nội dung ghi chú" } },
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "يعرض محتوى المذكرة" } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "يعرض محتوى المذكرة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zeigt Memo-Inhalt an"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Muestra el contenido del memo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Affiche le contenu du mémo"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Menampilkan isi memo"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra il contenuto del memo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メモの内容を表示します"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "메모 내용을 표시합니다"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exibe o conteúdo do memo"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Отображает содержимое заметки"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "แสดงเนื้อหาบันทึก"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hiển thị nội dung ghi chú"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "显示备忘录内容"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "顯示備忘錄內容"
+          }
+        }
       }
     },
-    "Display memo on lock screen" : {
-      "localizations" : {
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "メモをロック画面に表示" } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "在锁定屏幕显示备忘录" } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "在鎖定畫面顯示備忘錄" } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "잠금 화면에 메모 표시" } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Afficher le mémo sur l'écran verrouillé" } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Memo auf Sperrbildschirm anzeigen" } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Mostrar memo en pantalla de bloqueo" } },
-        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Exibir memo na tela de bloqueio" } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Mostra memo nella schermata di blocco" } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Показать заметку на экране блокировки" } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "แสดงบันทึกบนหน้าจอล็อก" } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Tampilkan memo di layar kunci" } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Hiển thị ghi chú trên màn hình khóa" } },
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "عرض المذكرة على شاشة القفل" } }
-      }
+    "Enter memo" : {
+
     },
     "Enter memo..." : {
       "localizations" : {
-        "ja" : { "stringUnit" : { "state" : "translated", "value" : "メモを入力..." } },
-        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "输入备忘录..." } },
-        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "輸入備忘錄..." } },
-        "ko" : { "stringUnit" : { "state" : "translated", "value" : "메모 입력..." } },
-        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Saisir un mémo..." } },
-        "de" : { "stringUnit" : { "state" : "translated", "value" : "Memo eingeben..." } },
-        "es" : { "stringUnit" : { "state" : "translated", "value" : "Escribir memo..." } },
-        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Inserir memo..." } },
-        "it" : { "stringUnit" : { "state" : "translated", "value" : "Inserisci memo..." } },
-        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Введите заметку..." } },
-        "th" : { "stringUnit" : { "state" : "translated", "value" : "ป้อนบันทึก..." } },
-        "id" : { "stringUnit" : { "state" : "translated", "value" : "Masukkan memo..." } },
-        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Nhập ghi chú..." } },
-        "ar" : { "stringUnit" : { "state" : "translated", "value" : "أدخل مذكرة..." } }
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "أدخل مذكرة..."
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Memo eingeben..."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escribir memo..."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisir un mémo..."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Masukkan memo..."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inserisci memo..."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メモを入力..."
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "메모 입력..."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inserir memo..."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Введите заметку..."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ป้อนบันทึก..."
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nhập ghi chú..."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "输入备忘录..."
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "輸入備忘錄..."
+          }
+        }
       }
+    },
+    "MemoNow" : {
+
+    },
+    "No memo" : {
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لا توجد مذكرة"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kein Memo"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sin memo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aucun mémo"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tidak ada memo"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun memo"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メモなし"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "메모 없음"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sem memo"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Нет заметок"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ไม่มีบันทึก"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Không có ghi chú"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "无备忘录"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無備忘錄"
+          }
+        }
+      }
+    },
+    "Select a board to display" : {
+
+    },
+    "Select Board" : {
+
     }
   },
   "version" : "1.0"
