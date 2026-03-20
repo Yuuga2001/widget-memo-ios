@@ -2,7 +2,7 @@ import Foundation
 
 enum AppConstants {
     static let appGroupID = "group.jp.riverapp.WidgetMemo"
-    static let defaultText = "メモを入力"
+    static var defaultText: String { String(localized: "Enter memo") }
     static let defaultFontSize: Double = 18.0
     static let minFontSize: Double = 10.0
     static let maxFontSize: Double = 48.0

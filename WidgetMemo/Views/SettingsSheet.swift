@@ -13,7 +13,7 @@ struct SettingsSheet: View {
 
         NavigationStack {
             Form {
-                Section("フォントサイズ") {
+                Section("Font Size") {
                     HStack {
                         Text("A")
                             .font(.system(size: 12))
@@ -25,21 +25,21 @@ struct SettingsSheet: View {
                         Text("A")
                             .font(.system(size: 24))
                     }
-                    Text("現在: \(Int(store.fontSize))pt")
+                    Text("Current: \(Int(store.fontSize))pt")
                         .font(.caption)
                         .foregroundStyle(.secondary)
                 }
 
-                Section("背景色") {
-                    ColorPicker("背景色を選択", selection: $store.backgroundColor, supportsOpacity: false)
+                Section("Background Color") {
+                    ColorPicker("Select Background Color", selection: $store.backgroundColor, supportsOpacity: false)
                 }
 
-                Section("文字色") {
-                    ColorPicker("文字色を選択", selection: $store.textColor, supportsOpacity: false)
+                Section("Text Color") {
+                    ColorPicker("Select Text Color", selection: $store.textColor, supportsOpacity: false)
                 }
 
-                Section("プレビュー") {
-                    Text(store.text.isEmpty ? "メモのプレビュー" : String(store.text.prefix(100)))
+                Section("Preview") {
+                    Text(store.text.isEmpty ? String(localized: "Memo Preview") : String(store.text.prefix(100)))
                         .font(.system(size: store.fontSize))
                         .foregroundStyle(store.textColor)
                         .frame(maxWidth: .infinity, minHeight: 80, alignment: .topLeading)
@@ -50,15 +50,15 @@ struct SettingsSheet: View {
                 }
 
                 Section {
-                    Button("デフォルト設定に戻す") {
+                    Button("Reset to Defaults") {
                         store.resetToDefaults()
                     }
 
-                    Button("このボードのデータを削除", role: .destructive) {
+                    Button("Delete This Board's Data", role: .destructive) {
                         showDeleteConfirm = true
                     }
 
-                    Button("すべてのデータを削除", role: .destructive) {
+                    Button("Delete All Data", role: .destructive) {
                         showDeleteAllConfirm = true
                     }
                 }
@@ -68,7 +68,7 @@ struct SettingsSheet: View {
                         safariURL = AppConstants.aboutURL
                     } label: {
                         HStack {
-                            Text("MemoNow について")
+                            Text("About MemoNow")
                             Spacer()
                             Image(systemName: "chevron.right")
                                 .font(.caption)
@@ -80,7 +80,7 @@ struct SettingsSheet: View {
                         safariURL = AppConstants.privacyPolicyURL
                     } label: {
                         HStack {
-                            Text("プライバシーポリシー")
+                            Text("Privacy Policy")
                             Spacer()
                             Image(systemName: "chevron.right")
                                 .font(.caption)
@@ -92,7 +92,7 @@ struct SettingsSheet: View {
                         safariURL = AppConstants.contactURL
                     } label: {
                         HStack {
-                            Text("お問い合わせ")
+                            Text("Contact Us")
                             Spacer()
                             Image(systemName: "chevron.right")
                                 .font(.caption)
@@ -101,29 +101,29 @@ struct SettingsSheet: View {
                     }
                 }
             }
-            .navigationTitle("設定")
+            .navigationTitle("Settings")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    Button("完了") { dismiss() }
+                    Button("Done") { dismiss() }
                 }
             }
-            .alert("データを削除しますか？", isPresented: $showDeleteConfirm) {
-                Button("キャンセル", role: .cancel) {}
-                Button("削除する", role: .destructive) {
+            .alert("Delete Data?", isPresented: $showDeleteConfirm) {
+                Button("Cancel", role: .cancel) {}
+                Button("Delete", role: .destructive) {
                     store.deleteAllData()
                 }
             } message: {
-                Text("このボードのメモ内容・設定・ボード名・バックアップがすべて初期化されます。この操作は取り消せません。")
+                Text("This board's memo, settings, board name, and backups will all be reset. This cannot be undone.")
             }
-            .alert("すべてのデータを削除しますか？", isPresented: $showDeleteAllConfirm) {
-                Button("キャンセル", role: .cancel) {}
-                Button("すべて削除する", role: .destructive) {
+            .alert("Delete All Data?", isPresented: $showDeleteAllConfirm) {
+                Button("Cancel", role: .cancel) {}
+                Button("Delete All", role: .destructive) {
                     manager.deleteAllData()
                     dismiss()
                 }
             } message: {
-                Text("全 4 ボードのメモ内容・設定・ボード名・バックアップがすべて初期化されます。この操作は取り消せません。")
+                Text("All 4 boards' memo, settings, board names, and backups will all be reset. This cannot be undone.")
             }
         }
         .presentationDetents([.medium, .large])

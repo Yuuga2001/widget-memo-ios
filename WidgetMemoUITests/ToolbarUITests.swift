@@ -5,6 +5,7 @@ final class ToolbarUITests: XCTestCase {
 
     override func setUpWithError() throws {
         continueAfterFailure = false
+        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
         app.launch()
         XCTAssertTrue(app.wait(for: .runningForeground, timeout: 10))
     }
@@ -55,7 +56,7 @@ final class ToolbarUITests: XCTestCase {
         helpButton.tap()
 
         // ヘルプガイドのタイトルが表示される
-        let title = app.staticTexts["使い方ガイド"]
+        let title = app.staticTexts["How to Use"]
         XCTAssertTrue(title.waitForExistence(timeout: 5), "ヘルプガイド画面が表示されるべき")
     }
 
@@ -64,7 +65,7 @@ final class ToolbarUITests: XCTestCase {
         XCTAssertTrue(helpButton.waitForExistence(timeout: 5))
         helpButton.tap()
 
-        let widgetSection = app.staticTexts["ウィジェットの追加方法"]
+        let widgetSection = app.staticTexts["How to Add Widgets"]
         XCTAssertTrue(widgetSection.waitForExistence(timeout: 5),
                       "ウィジェットの追加方法セクションが表示されるべき")
     }
@@ -74,7 +75,7 @@ final class ToolbarUITests: XCTestCase {
         XCTAssertTrue(helpButton.waitForExistence(timeout: 5))
         helpButton.tap()
 
-        let title = app.staticTexts["使い方ガイド"]
+        let title = app.staticTexts["How to Use"]
         XCTAssertTrue(title.waitForExistence(timeout: 5))
 
         // 閉じるボタンをタップ

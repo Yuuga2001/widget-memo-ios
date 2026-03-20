@@ -3,7 +3,7 @@ import WidgetKit
 import SwiftUI
 
 struct BoardEntity: AppEntity {
-    static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "ボード")
+    static var typeDisplayRepresentation = TypeDisplayRepresentation(name: "Board")
     static var defaultQuery = BoardQuery()
 
     var id: Int
@@ -39,10 +39,10 @@ struct BoardQuery: EntityQuery {
 }
 
 struct SelectBoardIntent: WidgetConfigurationIntent {
-    static var title: LocalizedStringResource = "ボードを選択"
-    static var description = IntentDescription("表示するボードを選択します")
+    static var title: LocalizedStringResource = "Select Board"
+    static var description = IntentDescription("Select a board to display")
 
-    @Parameter(title: "ボード")
+    @Parameter(title: "Board")
     var board: BoardEntity?
 
     var boardIndex: Int { board?.id ?? 0 }

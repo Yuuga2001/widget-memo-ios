@@ -1,0 +1,52 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Enter memo" : {
+      "localizations" : {
+        "ja" : {
+          "stringUnit" : { "state" : "translated", "value" : "メモを入力" }
+        },
+        "zh-Hans" : {
+          "stringUnit" : { "state" : "translated", "value" : "输入备忘录" }
+        },
+        "zh-Hant" : {
+          "stringUnit" : { "state" : "translated", "value" : "輸入備忘錄" }
+        },
+        "ko" : {
+          "stringUnit" : { "state" : "translated", "value" : "메모 입력" }
+        },
+        "fr" : {
+          "stringUnit" : { "state" : "translated", "value" : "Saisir un mémo" }
+        },
+        "de" : {
+          "stringUnit" : { "state" : "translated", "value" : "Memo eingeben" }
+        },
+        "es" : {
+          "stringUnit" : { "state" : "translated", "value" : "Escribir memo" }
+        },
+        "pt-BR" : {
+          "stringUnit" : { "state" : "translated", "value" : "Inserir memo" }
+        },
+        "it" : {
+          "stringUnit" : { "state" : "translated", "value" : "Inserisci memo" }
+        },
+        "ru" : {
+          "stringUnit" : { "state" : "translated", "value" : "Введите заметку" }
+        },
+        "th" : {
+          "stringUnit" : { "state" : "translated", "value" : "ป้อนบันทึก" }
+        },
+        "id" : {
+          "stringUnit" : { "state" : "translated", "value" : "Masukkan memo" }
+        },
+        "vi" : {
+          "stringUnit" : { "state" : "translated", "value" : "Nhập ghi chú" }
+        },
+        "ar" : {
+          "stringUnit" : { "state" : "translated", "value" : "أدخل مذكرة" }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

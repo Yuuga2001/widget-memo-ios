@@ -5,6 +5,7 @@ final class UndoRedoUITests: XCTestCase {
 
     override func setUpWithError() throws {
         continueAfterFailure = false
+        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
         app.launch()
         XCTAssertTrue(app.wait(for: .runningForeground, timeout: 10))
     }

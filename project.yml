@@ -9,6 +9,7 @@ options:
 settings:
   base:
     SWIFT_VERSION: "5.10"
+    SWIFT_EMIT_LOC_STRINGS: "YES"
 
 targets:
   WidgetMemo:

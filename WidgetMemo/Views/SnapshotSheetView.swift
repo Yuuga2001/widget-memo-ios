@@ -11,8 +11,9 @@ struct SnapshotSheetView: View {
 
     private let dateFormatter: DateFormatter = {
         let f = DateFormatter()
-        f.locale = Locale(identifier: "ja_JP")
-        f.dateFormat = "yyyy/MM/dd HH:mm"
+        f.locale = Locale.current
+        f.dateStyle = .short
+        f.timeStyle = .short
         return f
     }()
 
@@ -26,7 +27,7 @@ struct SnapshotSheetView: View {
                 } label: {
                     HStack {
                         Image(systemName: "square.and.arrow.down")
-                        Text("現在の状態を保存")
+                        Text("Save Current State")
                     }
                     .frame(maxWidth: .infinity)
                     .padding(.vertical, 10)
@@ -43,7 +44,7 @@ struct SnapshotSheetView: View {
                 // スナップショット一覧
                 if snapshots.isEmpty {
                     Spacer()
-                    Text("バックアップは\nありません")
+                    Text("No backups\navailable")
                         .font(.subheadline)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -78,7 +79,7 @@ struct SnapshotSheetView: View {
                     .listStyle(.plain)
                 }
             }
-            .navigationTitle("バックアップ")
+            .navigationTitle("Backups")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -93,11 +94,11 @@ struct SnapshotSheetView: View {
             .onAppear {
                 reloadSnapshots()
             }
-            .alert("この状態に戻しますか？", isPresented: $showRestoreConfirm) {
-                Button("キャンセル", role: .cancel) {
+            .alert("Restore this state?", isPresented: $showRestoreConfirm) {
+                Button("Cancel", role: .cancel) {
                     selectedSnapshot = nil
                 }
-                Button("戻す") {
+                Button("Restore") {
                     if let snapshot = selectedSnapshot {
                         snapshotStore.restore(snapshot, to: store)
                         reloadSnapshots()
@@ -106,7 +107,7 @@ struct SnapshotSheetView: View {
                 }
             } message: {
                 if let snapshot = selectedSnapshot {
-                    Text("\(dateFormatter.string(from: snapshot.date)) の状態に戻します。現在の状態は自動的に保存されます。")
+                    Text("Restoring to \(dateFormatter.string(from: snapshot.date)). Current state will be saved automatically.")
                 }
             }
         }

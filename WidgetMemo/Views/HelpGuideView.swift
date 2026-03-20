@@ -9,80 +9,80 @@ struct HelpGuideView: View {
                 VStack(alignment: .leading, spacing: 20) {
                     helpSection(
                         icon: "plus.square.on.square",
-                        title: "ウィジェットの追加方法",
+                        title: "How to Add Widgets",
                         accentColor: .blue,
                         steps: [
-                            "ホーム画面の空白部分を長押しします",
-                            "左上の「＋」ボタンをタップします",
-                            "検索欄に「MemoNow」と入力します",
-                            "お好みのサイズを選んで「ウィジェットを追加」をタップします",
+                            "Long press an empty area on the home screen",
+                            "Tap the \"+\" button in the upper left",
+                            "Type \"MemoNow\" in the search field",
+                            "Choose your preferred size and tap \"Add Widget\"",
                         ]
                     )
 
                     helpSection(
                         icon: "arrow.triangle.2.circlepath",
-                        title: "ウィジェットのボード切り替え",
+                        title: "Switching Widget Boards",
                         accentColor: .green,
                         steps: [
-                            "ホーム画面のウィジェットを長押しします",
-                            "「ウィジェットを編集」をタップします",
-                            "「ボード」をタップして、表示したいボードを選びます",
+                            "Long press the widget on the home screen",
+                            "Tap \"Edit Widget\"",
+                            "Tap \"Board\" and select the board you want to display",
                         ]
                     )
 
                     helpSection(
                         icon: "lock.display",
-                        title: "ロック画面にウィジェットを追加",
+                        title: "Add Widget to Lock Screen",
                         accentColor: .orange,
                         steps: [
-                            "ロック画面を長押しして「カスタマイズ」をタップします",
-                            "「ロック画面」を選びます",
-                            "ウィジェットエリアをタップします",
-                            "MemoNow を選んで追加します",
+                            "Long press the lock screen and tap \"Customize\"",
+                            "Select \"Lock Screen\"",
+                            "Tap the widget area",
+                            "Select MemoNow and add it",
                         ]
                     )
 
                     helpSection(
                         icon: "pencil.and.outline",
-                        title: "メモ編集のヒント",
+                        title: "Memo Editing Tips",
                         accentColor: .purple,
                         steps: [
-                            "左上の矢印ボタンで「元に戻す」「やり直し」ができます",
-                            "左上の時計ボタンでメモのバックアップを管理できます",
-                            "右上のコピーボタンでメモをクリップボードにコピーできます",
-                            "画面上部のボード名をタップすると名前を変更できます",
-                            "右上の歯車ボタンで文字サイズや色をカスタマイズできます",
-                            "画面下のタブで 4 つのボードを切り替えられます",
+                            "Use the arrow buttons in the upper left to undo/redo",
+                            "Use the clock button in the upper left to manage backups",
+                            "Use the copy button in the upper right to copy memo to clipboard",
+                            "Tap the board name at the top to rename it",
+                            "Use the gear button in the upper right to customize font size and colors",
+                            "Switch between 4 boards using the tabs at the bottom",
                         ]
                     )
 
                     helpSection(
                         icon: "clock.arrow.circlepath",
-                        title: "バックアップの使い方",
+                        title: "How to Use Backups",
                         accentColor: .teal,
                         steps: [
-                            "左上の時計ボタンをタップしてバックアップを開きます",
-                            "「現在の状態を保存」ボタンでメモの状態を記録できます",
-                            "一覧から過去の保存を選ぶと、その時の状態に戻せます",
-                            "復元する際、現在の状態は自動的に保存されるので安心です",
-                            "不要な履歴は左スワイプで削除できます",
+                            "Tap the clock button in the upper left to open backups",
+                            "Use the \"Save Current State\" button to record your memo",
+                            "Select a past backup from the list to restore it",
+                            "Your current state is saved automatically when restoring",
+                            "Swipe left on unwanted backups to delete them",
                         ]
                     )
 
                     helpSection(
                         icon: "applewatch",
-                        title: "Apple Watch との連携",
+                        title: "Apple Watch Integration",
                         accentColor: .indigo,
                         steps: [
-                            "iPhone で書いたメモは Apple Watch に自動で同期されます",
-                            "Watch アプリを開くとすぐにメモを確認できます",
-                            "外出先で手軽にメモをチェックできます",
+                            "Memos written on iPhone sync to Apple Watch automatically",
+                            "Open the Watch app to view your memos instantly",
+                            "Check your memos on the go",
                         ]
                     )
                 }
                 .padding()
             }
-            .navigationTitle("使い方ガイド")
+            .navigationTitle("How to Use")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -97,7 +97,7 @@ struct HelpGuideView: View {
         }
     }
 
-    private func helpSection(icon: String, title: String, accentColor: Color, steps: [String]) -> some View {
+    private func helpSection(icon: String, title: LocalizedStringKey, accentColor: Color, steps: [LocalizedStringKey]) -> some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack(spacing: 12) {
                 Image(systemName: icon)

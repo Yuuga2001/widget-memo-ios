@@ -8,7 +8,7 @@ struct MemoTimelineProvider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> MemoWidgetEntry {
         MemoWidgetEntry(
             date: .now,
-            text: "メモを入力...",
+            text: String(localized: "Enter memo..."),
             fontSize: AppConstants.defaultFontSize,
             backgroundColor: Color(red: 0.0, green: 0.573, blue: 0.890),
             textColor: .white,

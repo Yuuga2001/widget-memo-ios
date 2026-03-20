@@ -74,7 +74,7 @@ struct MemoView: View {
                 }
                 ToolbarItem(placement: .principal) {
                     if isEditingName {
-                        TextField("ボード名", text: $store.boardName)
+                        TextField("Board Name", text: $store.boardName)
                             .textFieldStyle(.roundedBorder)
                             .frame(maxWidth: 150)
                             .focused($isNameFieldFocused)

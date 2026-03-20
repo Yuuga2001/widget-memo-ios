@@ -6,7 +6,7 @@ struct HomeScreenWidgetEntryView: View {
     @Environment(\.widgetFamily) var family
 
     var body: some View {
-        Text(entry.text.isEmpty ? "メモなし" : entry.text)
+        Text(entry.text.isEmpty ? String(localized: "No memo") : entry.text)
             .font(.system(size: adjustedFontSize))
             .foregroundStyle(entry.textColor)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
@@ -47,7 +47,7 @@ struct HomeScreenWidget: Widget {
             HomeScreenWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("MemoNow")
-        .description("メモの内容を表示します")
+        .description("Displays memo content")
         .supportedFamilies([.systemSmall, .systemMedium, .systemLarge])
     }
 }

@@ -5,6 +5,7 @@ final class SnapshotSheetUITests: XCTestCase {
 
     override func setUpWithError() throws {
         continueAfterFailure = false
+        app.launchArguments += ["-AppleLanguages", "(en)", "-AppleLocale", "en_US"]
         app.launch()
         XCTAssertTrue(app.wait(for: .runningForeground, timeout: 10))
     }
@@ -29,7 +30,7 @@ final class SnapshotSheetUITests: XCTestCase {
         XCTAssertTrue(button.waitForExistence(timeout: 5))
         button.tap()
 
-        let title = app.staticTexts["バックアップ"]
+        let title = app.staticTexts["Backups"]
         XCTAssertTrue(title.waitForExistence(timeout: 5), "バックアップシートが表示されるべき")
     }
 
@@ -47,7 +48,7 @@ final class SnapshotSheetUITests: XCTestCase {
         XCTAssertTrue(button.waitForExistence(timeout: 5))
         button.tap()
 
-        let title = app.navigationBars["バックアップ"]
+        let title = app.navigationBars["Backups"]
         XCTAssertTrue(title.waitForExistence(timeout: 5), "ナビゲーションタイトルが表示されるべき")
     }
 
@@ -58,11 +59,11 @@ final class SnapshotSheetUITests: XCTestCase {
         XCTAssertTrue(button.waitForExistence(timeout: 5))
         button.tap()
 
-        let title = app.staticTexts["バックアップ"]
+        let title = app.staticTexts["Backups"]
         XCTAssertTrue(title.waitForExistence(timeout: 5))
 
         // ナビゲーションバー内の閉じるボタン
-        let navBar = app.navigationBars["バックアップ"]
+        let navBar = app.navigationBars["Backups"]
         let closeButton = navBar.buttons.firstMatch
         if closeButton.waitForExistence(timeout: 3) {
             closeButton.tap()

@@ -1,0 +1,60 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Board" : {
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ボード" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "看板" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "看板" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "보드" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Tableau" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Board" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Tablero" } },
+        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Quadro" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Bacheca" } },
+        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Доска" } },
+        "th" : { "stringUnit" : { "state" : "translated", "value" : "บอร์ด" } },
+        "id" : { "stringUnit" : { "state" : "translated", "value" : "Papan" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Bảng" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "لوحة" } }
+      }
+    },
+    "Select Board" : {
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "ボードを選択" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "选择看板" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "選擇看板" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "보드 선택" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Sélectionner un tableau" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Board auswählen" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Seleccionar tablero" } },
+        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Selecionar quadro" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Seleziona bacheca" } },
+        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Выбрать доску" } },
+        "th" : { "stringUnit" : { "state" : "translated", "value" : "เลือกบอร์ด" } },
+        "id" : { "stringUnit" : { "state" : "translated", "value" : "Pilih papan" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chọn bảng" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "اختر لوحة" } }
+      }
+    },
+    "Select a board to display" : {
+      "localizations" : {
+        "ja" : { "stringUnit" : { "state" : "translated", "value" : "表示するボードを選択します" } },
+        "zh-Hans" : { "stringUnit" : { "state" : "translated", "value" : "选择要显示的看板" } },
+        "zh-Hant" : { "stringUnit" : { "state" : "translated", "value" : "選擇要顯示的看板" } },
+        "ko" : { "stringUnit" : { "state" : "translated", "value" : "표시할 보드를 선택합니다" } },
+        "fr" : { "stringUnit" : { "state" : "translated", "value" : "Sélectionnez un tableau à afficher" } },
+        "de" : { "stringUnit" : { "state" : "translated", "value" : "Wählen Sie ein Board zum Anzeigen" } },
+        "es" : { "stringUnit" : { "state" : "translated", "value" : "Selecciona un tablero para mostrar" } },
+        "pt-BR" : { "stringUnit" : { "state" : "translated", "value" : "Selecione um quadro para exibir" } },
+        "it" : { "stringUnit" : { "state" : "translated", "value" : "Seleziona una bacheca da visualizzare" } },
+        "ru" : { "stringUnit" : { "state" : "translated", "value" : "Выберите доску для отображения" } },
+        "th" : { "stringUnit" : { "state" : "translated", "value" : "เลือกบอร์ดที่จะแสดง" } },
+        "id" : { "stringUnit" : { "state" : "translated", "value" : "Pilih papan untuk ditampilkan" } },
+        "vi" : { "stringUnit" : { "state" : "translated", "value" : "Chọn bảng để hiển thị" } },
+        "ar" : { "stringUnit" : { "state" : "translated", "value" : "اختر لوحة للعرض" } }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -22,7 +22,7 @@ struct LockScreenWidgetEntryView: View {
     }
 
     private var rectangularView: some View {
-        Text(entry.text.isEmpty ? "メモなし" : entry.text)
+        Text(entry.text.isEmpty ? String(localized: "No memo") : entry.text)
             .font(.system(size: 12))
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
             .multilineTextAlignment(.leading)
@@ -39,7 +39,7 @@ struct LockScreenWidgetEntryView: View {
     }
 
     private var inlineView: some View {
-        Text(entry.text.isEmpty ? "メモなし" : entry.text)
+        Text(entry.text.isEmpty ? String(localized: "No memo") : entry.text)
     }
 }
 
@@ -51,7 +51,7 @@ struct LockScreenWidget: Widget {
             LockScreenWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("MemoNow")
-        .description("メモをロック画面に表示")
+        .description("Display memo on lock screen")
         .supportedFamilies([.accessoryRectangular, .accessoryCircular, .accessoryInline])
     }
 }
