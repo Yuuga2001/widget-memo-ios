@@ -100,7 +100,10 @@ struct MemoView: View {
                 ToolbarItem(placement: .principal) {
                     if isEditingName {
                         TextField("Board Name", text: $store.boardName)
-                            .textFieldStyle(.roundedBorder)
+                            .textFieldStyle(.plain)
+                            .font(.headline)
+                            .foregroundStyle(store.textColor.opacity(0.8))
+                            .multilineTextAlignment(.center)
                             .frame(maxWidth: 150)
                             .focused($isNameFieldFocused)
                             .onSubmit {
